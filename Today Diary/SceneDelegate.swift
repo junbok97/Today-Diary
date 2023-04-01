@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let rootViewModel = MainViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -18,11 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         let rootViewController = MainViewController()
+        rootViewController.bind(rootViewModel)
         let naviVC = UINavigationController(rootViewController: rootViewController)
         
         self.window?.backgroundColor = .systemBackground
         self.window?.rootViewController = naviVC
         self.window?.makeKeyAndVisible()
+        
+        rootViewModel.test()
         
     }
 

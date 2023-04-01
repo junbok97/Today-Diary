@@ -9,6 +9,7 @@ import UIKit
 
 enum SystemImage: String {
     case plus
+    case trashFill = "trash.fill"
 
     var image: UIImage? { return UIImage(systemName: self.rawValue) }
 

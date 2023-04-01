@@ -7,14 +7,20 @@
 
 import FSCalendar
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class MainViewController: UIViewController {
     
+    private let disposeBag = DisposeBag()
+    
     private lazy var addDiaryButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: nil) // TODO: action 추가
+        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: #selector(addDiaryButtonTapped)) // TODO: action 추가
         barButton.tintColor = .label
         return barButton
     }()
+    
+    let diaryListBackgroundView = DiaryListBackgroundView()
     
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
@@ -35,35 +41,37 @@ final class MainViewController: UIViewController {
     }()
     
     private lazy var diaryList: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.backgroundColor = .secondarySystemBackground
+        tableView.backgroundView = diaryListBackgroundView
+        DiaryListCell.register(target: tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(calendar)
-    }
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         attribute()
         layout()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    func bind(_ viewModel: MainViewModel) {
+        diaryListBackgroundView.bind(viewModel.diaryListBackgroundViewModel)
+        
+        viewModel.diaryListCellData
+            .drive(diaryList.rx.items) { tableView, row, item in
+                let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
+                cell.setData(diary: item)
+                return cell
+            }
+            .disposed(by: disposeBag)
+            
     }
     
-    func bind() {
-        
-    }
-
 }
 
 // MARK: - setup
@@ -92,6 +100,14 @@ private extension MainViewController {
     }
 }
 
+// MARK: - @objc
+private extension MainViewController {
+    @objc func addDiaryButtonTapped() {
+        let detailViewController = DetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: false)
+    }
+}
+
 // MARK: - FSCalendarDataSource
 extension MainViewController: FSCalendarDataSource {
     
@@ -102,20 +118,28 @@ extension MainViewController: FSCalendarDelegate {
     
 }
 
-// MARK: - UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    
-}
+
 
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in
+            // 원하는 액션 추가
+            // tableView.deleteRows(at: [indexPath], with: .fade)
+                
+            success(true)
+        }
+        
+        // 각 ContextualAction 대한 설정
+        
+        delete.backgroundColor = .systemRed
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        // UISwipeActionsConfiguration에 action을 추가하여 리턴
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
+
+

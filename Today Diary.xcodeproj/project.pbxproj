@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
-		CB03B28229D58E33008771BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB03B28129D58E33008771BD /* Main.storyboard */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
 		CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */; };
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
 		CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB24304029CEEE6E0046AD0C /* Assets.xcassets */; };
 		CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */; };
+		CBBB094F29D7EFC000DB4C30 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBBB094E29D7EFC000DB4C30 /* Test.storyboard */; };
+		CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095229D7F07400DB4C30 /* SystemImage.swift */; };
+		CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.debug.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.debug.xcconfig"; sourceTree = "<group>"; };
 		15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.release.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.release.xcconfig"; sourceTree = "<group>"; };
 		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB03B28129D58E33008771BD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +29,9 @@
 		CB24304029CEEE6E0046AD0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB24304329CEEE6E0046AD0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB24304529CEEE6E0046AD0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBBB094E29D7EFC000DB4C30 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		CBBB095229D7F07400DB4C30 /* SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImage.swift; sourceTree = "<group>"; };
+		CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +57,7 @@
 		CB03B28029D58E27008771BD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				CB24303B29CEEE6E0046AD0C /* MainViewController.swift */,
+				CBBB095729D7F19500DB4C30 /* MainViewController */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -81,13 +85,63 @@
 			children = (
 				CB24303729CEEE6E0046AD0C /* AppDelegate.swift */,
 				CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */,
+				CBBB095129D7F06A00DB4C30 /* Enum */,
+				CBBB095029D7F02C00DB4C30 /* Extenstion */,
 				CB03B28029D58E27008771BD /* Presentation */,
 				CB24304029CEEE6E0046AD0C /* Assets.xcassets */,
 				CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */,
+				CBBB094E29D7EFC000DB4C30 /* Test.storyboard */,
 				CB24304529CEEE6E0046AD0C /* Info.plist */,
-				CB03B28129D58E33008771BD /* Main.storyboard */,
 			);
 			path = "Today Diary";
+			sourceTree = "<group>";
+		};
+		CBBB095029D7F02C00DB4C30 /* Extenstion */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extenstion;
+			sourceTree = "<group>";
+		};
+		CBBB095129D7F06A00DB4C30 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				CBBB095229D7F07400DB4C30 /* SystemImage.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		CBBB095429D7F17600DB4C30 /* DiaryListCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DiaryListCell;
+			sourceTree = "<group>";
+		};
+		CBBB095529D7F17D00DB4C30 /* DiaryListBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */,
+			);
+			path = DiaryListBackgroundView;
+			sourceTree = "<group>";
+		};
+		CBBB095629D7F18D00DB4C30 /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				CBBB095529D7F17D00DB4C30 /* DiaryListBackgroundView */,
+				CBBB095429D7F17600DB4C30 /* DiaryListCell */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		CBBB095729D7F19500DB4C30 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CB24303B29CEEE6E0046AD0C /* MainViewController.swift */,
+				CBBB095629D7F18D00DB4C30 /* DiaryList */,
+			);
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 		DEC0A61058BF32A4BAFE8D0B /* Pods */ = {
@@ -96,7 +150,6 @@
 				0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */,
 				15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -160,7 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB03B28229D58E33008771BD /* Main.storyboard in Resources */,
+				CBBB094F29D7EFC000DB4C30 /* Test.storyboard in Resources */,
 				CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */,
 				CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */,
 			);
@@ -215,8 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */,
 				CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */,
 				CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */,
+				CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */,
 				CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -30,7 +30,8 @@ final class DefaultDetailCoordinator: DetailCoordinator {
     }
     
     func start(diary: Diary) {
-        let detailViewController = DetailViewController(id: diary.id)
+        let viewModel = DetailViewModel(id: diary.id)
+        let detailViewController = DetailViewController(viewModel: viewModel)
         detailViewController.coordinator = self
         navi.pushViewController(detailViewController, animated: false)
     }
@@ -42,9 +43,6 @@ final class DefaultDetailCoordinator: DetailCoordinator {
     func showEditViewController(diary: Diary) {
         parentCoordinator?.showEditViewController(diary: diary)
     }
-    
-    deinit {
-        print("DetailCoordinator Deinit")
-    }
+
 
 }

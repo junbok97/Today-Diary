@@ -29,7 +29,8 @@ final class DefaultCreateCoorinator: CreateCoorinator {
     }
 
     func startCreate(date: Date) {
-        let createViewController = CreateViewController(date: date, nil)
+        let viewModel = CreateViewModel(date: date, diary: nil)
+        let createViewController = CreateViewController(viewModel: viewModel)
         createViewController.coordinator = self
         navi.pushViewController(createViewController, animated: false)
     }
@@ -39,7 +40,8 @@ final class DefaultCreateCoorinator: CreateCoorinator {
     }
     
     func startEdit(diary: Diary) {
-        let createViewController = CreateViewController(diary)
+        let viewModel = CreateViewModel(diary: diary)
+        let createViewController = CreateViewController(viewModel: viewModel)
         createViewController.coordinator = self
         navi.pushViewController(createViewController, animated: false)
     }
@@ -49,7 +51,4 @@ final class DefaultCreateCoorinator: CreateCoorinator {
         parentCoordinator?.finishChild(self)
     }
     
-    deinit {
-        print("crate Coordinator deinit")
-    }
 }

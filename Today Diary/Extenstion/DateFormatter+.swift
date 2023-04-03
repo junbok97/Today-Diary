@@ -13,10 +13,5 @@ extension DateFormatter {
         dateFormat = "yyyy-MM-dd"
         return string(from: date)
     }
-    
-    func toKey(date: Date) -> String {
-        dateFormat = "yyyy-MM"
-        return string(from: date)
-    }
-    
+
 }

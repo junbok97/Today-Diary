@@ -23,7 +23,4 @@ extension UserDefaults {
         }
     }
     
-    func getDiary(key: String) {
-        
-    }
 }

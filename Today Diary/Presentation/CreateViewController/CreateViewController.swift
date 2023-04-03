@@ -8,19 +8,13 @@
 import UIKit
 
 final class CreateViewController: UIViewController {
-    
+    private let contentPlaceHolder = "Pleas Insert Content ..."
+    private let inset: CGFloat = 4.0
+    private let offset: CGFloat = 12.0
+    private let borderWidth: CGFloat = 1.0
+    private let textFieldHeight: CGFloat = 65.0
 
-    let contentPlaceHolder = "Pleas Insert Content ..."
-    let inset: CGFloat = 4.0
-    let offset: CGFloat = 12.0
-    let borderWidth: CGFloat = 1.0
-    let textFieldHeight: CGFloat = 65.0
-    let diaryManager = DiaryManager.shared
-    
-    let date: Date
-    var diary: Diary?
-    let isHasDiary: Bool
-    
+    private var viewModel: CreateViewModel
     var coordinator: CreateCoorinator?
     var stackViewBottomConstraint: NSLayoutConstraint!
     
@@ -65,21 +59,14 @@ final class CreateViewController: UIViewController {
         return stackView
     }()
 
-    init(date: Date = Date(), _ diary: Diary?) {
-        self.date = date
-        self.diary = diary
-        if diary == nil {
-            self.isHasDiary = false
-        } else {
-            self.isHasDiary = true
-        }
+    init(viewModel: CreateViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         attribute()
@@ -94,14 +81,9 @@ final class CreateViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.removeKeyboardNotifications()
     }
-
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         coordinator?.finish()
-    }
-    
-    deinit {
-        print("createVC deinit")
     }
     
 }
@@ -113,11 +95,11 @@ private extension CreateViewController {
         navigationController?.navigationBar.tintColor = .label
         navigationItem.rightBarButtonItem = doneButton
         
-        if let diary = diary {
-            titleTextField.text = diary.title
-            contentTextView.text = diary.content
-            contentTextView.textColor = .label
-        }
+        let diary = viewModel.getDiary()
+        titleTextField.text = diary.title
+        contentTextView.text = diary.content
+        contentTextView.textColor = .label
+    
     }
     
     func layout() {
@@ -146,14 +128,7 @@ private extension CreateViewController {
         if title == "" || content == contentPlaceHolder  {
             alert()
         } else {
-            if isHasDiary {
-                diary!.title = title
-                diary!.content = content
-                diaryManager.editDiary(diary!)
-            } else {
-                let newDiary = Diary(title: title, content: content, date: date)
-                diaryManager.addDiray(newDiary)
-            }
+            viewModel.saveDiary(title: title, content: content)
             coordinator?.saveFinish()
         }
     }

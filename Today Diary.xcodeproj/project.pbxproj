@@ -20,7 +20,8 @@
 		CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */; };
 		CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */; };
 		CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */; };
-		CBBB094F29D7EFC000DB4C30 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBBB094E29D7EFC000DB4C30 /* Test.storyboard */; };
+		CB7A34F129DA8930002E435D /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34F029DA8930002E435D /* DetailViewModel.swift */; };
+		CB7A34F329DA8C8A002E435D /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34F229DA8C8A002E435D /* CreateViewModel.swift */; };
 		CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095229D7F07400DB4C30 /* SystemImage.swift */; };
 		CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */; };
 		CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095A29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift */; };
@@ -31,7 +32,6 @@
 		CBBB098929D81A0200DB4C30 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098829D81A0200DB4C30 /* CreateViewController.swift */; };
 		CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098A29D823D900DB4C30 /* UITextField+.swift */; };
 		CBBB098D29D8309200DB4C30 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */; };
-		CBBB098F29D8324200DB4C30 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098E29D8324200DB4C30 /* MainModel.swift */; };
 		CBBB099129D8382500DB4C30 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB099029D8382500DB4C30 /* Date+.swift */; };
 		CBBB099329D8388B00DB4C30 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB099229D8388B00DB4C30 /* DiaryManager.swift */; };
 /* End PBXBuildFile section */
@@ -54,7 +54,8 @@
 		CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoorinator.swift; sourceTree = "<group>"; };
 		CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		CBBB094E29D7EFC000DB4C30 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		CB7A34F029DA8930002E435D /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		CB7A34F229DA8C8A002E435D /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		CBBB095229D7F07400DB4C30 /* SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImage.swift; sourceTree = "<group>"; };
 		CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundView.swift; sourceTree = "<group>"; };
 		CBBB095A29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundViewModel.swift; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		CBBB098829D81A0200DB4C30 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		CBBB098A29D823D900DB4C30 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
-		CBBB098E29D8324200DB4C30 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		CBBB099029D8382500DB4C30 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		CBBB099229D8388B00DB4C30 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +130,6 @@
 				CB03B28029D58E27008771BD /* Presentation */,
 				CB24304029CEEE6E0046AD0C /* Assets.xcassets */,
 				CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */,
-				CBBB094E29D7EFC000DB4C30 /* Test.storyboard */,
 				CB24304529CEEE6E0046AD0C /* Info.plist */,
 			);
 			path = "Today Diary";
@@ -141,6 +140,7 @@
 			children = (
 				CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */,
 				CB7A34E429D94F0E002E435D /* DetailViewController.swift */,
+				CB7A34F029DA8930002E435D /* DetailViewModel.swift */,
 			);
 			path = DetailDiaryViewController;
 			sourceTree = "<group>";
@@ -197,7 +197,6 @@
 				CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */,
 				CB24303B29CEEE6E0046AD0C /* MainViewController.swift */,
 				CBBB096529D7F92600DB4C30 /* MainViewModel.swift */,
-				CBBB098E29D8324200DB4C30 /* MainModel.swift */,
 				CBBB095629D7F18D00DB4C30 /* DiaryList */,
 			);
 			path = MainViewController;
@@ -226,6 +225,7 @@
 			children = (
 				CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */,
 				CBBB098829D81A0200DB4C30 /* CreateViewController.swift */,
+				CB7A34F229DA8C8A002E435D /* CreateViewModel.swift */,
 			);
 			path = CreateViewController;
 			sourceTree = "<group>";
@@ -299,7 +299,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBBB094F29D7EFC000DB4C30 /* Test.storyboard in Resources */,
 				CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */,
 				CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */,
 			);
@@ -354,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7A34F329DA8C8A002E435D /* CreateViewModel.swift in Sources */,
 				CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */,
 				CBBB098929D81A0200DB4C30 /* CreateViewController.swift in Sources */,
 				CBBB099329D8388B00DB4C30 /* DiaryManager.swift in Sources */,
@@ -365,6 +365,7 @@
 				CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */,
 				CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */,
 				CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */,
+				CB7A34F129DA8930002E435D /* DetailViewModel.swift in Sources */,
 				CBBB095D29D7F52300DB4C30 /* DiaryListCell.swift in Sources */,
 				CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */,
 				CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */,
@@ -372,7 +373,6 @@
 				CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */,
 				CBBB096629D7F92600DB4C30 /* MainViewModel.swift in Sources */,
 				CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */,
-				CBBB098F29D8324200DB4C30 /* MainModel.swift in Sources */,
 				CBBB096029D7F54C00DB4C30 /* UITableViewCellRegister.swift in Sources */,
 				CBBB099129D8382500DB4C30 /* Date+.swift in Sources */,
 				CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */,

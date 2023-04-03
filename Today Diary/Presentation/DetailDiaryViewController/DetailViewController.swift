@@ -9,8 +9,7 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    let id: String
-    let diaryManager = DiaryManager.shared
+    let viewModel: DetailViewModel
     var coordinator: DetailCoordinator?
     
     var diary: Diary? {
@@ -66,14 +65,14 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
-    init(id: String) {
-        self.id = id
+    init(viewModel: DetailViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.diary = diaryManager.getDiary(id)!
+        self.diary = viewModel.getDiary()
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +87,6 @@ final class DetailViewController: UIViewController {
     
     deinit {
         coordinator?.finish()
-        print("detaklViewController")
     }
 }
 

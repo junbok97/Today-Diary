@@ -22,4 +22,8 @@ extension UserDefaults {
             UserDefaults.standard.setValue(try? PropertyListEncoder().encode(newValue), forKey: Key.diarys.rawValue)
         }
     }
+    
+    func getDiary(key: String) {
+        
+    }
 }

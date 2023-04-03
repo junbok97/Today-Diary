@@ -10,24 +10,14 @@ import UIKit
 struct Diary: Codable {
     // TODO: id와 date private로 변경예정
     let id: String
-    let date: Date
+    let date: String
     var title: String
     var content: String
     
-    init(title: String, content: String) {
+    init(title: String, content: String, date: Date) {
         self.id = UUID().uuidString
-        self.date = Date()
         self.title = title
         self.content = content
-    }
-    
-    var dateString: String? {
-        
-        let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "yyyy-MM-dd"
-        
-        return myFormatter.string(from: date)
+        self.date = DateFormatter().toString(date: date)
     }
 }
-
-

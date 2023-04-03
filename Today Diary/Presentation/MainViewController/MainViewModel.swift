@@ -20,6 +20,7 @@ struct MainViewModel {
     let addDiaryButtonTapped = PublishRelay<Void>()
     let deleteDiary = PublishRelay<Void>()
     let selectDate = PublishRelay<Date>()
+    let selectDiary = PublishRelay<Diary>()
     
     let diaryData = PublishSubject<[Diary]>()
     
@@ -33,6 +34,13 @@ struct MainViewModel {
             .map { !$0.isEmpty } // 비어있으면 isHidden = false 비어있지 않으면 isHidden = true
             .bind(to: diaryListBackgroundViewModel.shouldHideStatusLabel)
             .disposed(by: disposeBag)
+        
+        selectDate
+            .startWith(Date())
+            .map { DiaryManager.shared.queryDiary($0) }
+            .bind(to: diaryData)
+            .disposed(by: disposeBag)
+                
     }
     
     

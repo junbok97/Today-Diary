@@ -13,6 +13,13 @@
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
 		CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB24304029CEEE6E0046AD0C /* Assets.xcassets */; };
 		CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */; };
+		CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C3DCA29D9393500E9BB6D /* DateFormatter+.swift */; };
+		CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E429D94F0E002E435D /* DetailViewController.swift */; };
+		CB7A34E729D9506C002E435D /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E629D9506C002E435D /* UIFont+.swift */; };
+		CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E829D95CE8002E435D /* Coordinator.swift */; };
+		CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */; };
+		CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */; };
+		CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */; };
 		CBBB094F29D7EFC000DB4C30 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBBB094E29D7EFC000DB4C30 /* Test.storyboard */; };
 		CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095229D7F07400DB4C30 /* SystemImage.swift */; };
 		CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */; };
@@ -21,10 +28,12 @@
 		CBBB096029D7F54C00DB4C30 /* UITableViewCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095F29D7F54C00DB4C30 /* UITableViewCellRegister.swift */; };
 		CBBB096329D7F78A00DB4C30 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB096229D7F78A00DB4C30 /* Diary.swift */; };
 		CBBB096629D7F92600DB4C30 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB096529D7F92600DB4C30 /* MainViewModel.swift */; };
-		CBBB098929D81A0200DB4C30 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098829D81A0200DB4C30 /* DetailViewController.swift */; };
+		CBBB098929D81A0200DB4C30 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098829D81A0200DB4C30 /* CreateViewController.swift */; };
 		CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098A29D823D900DB4C30 /* UITextField+.swift */; };
 		CBBB098D29D8309200DB4C30 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */; };
 		CBBB098F29D8324200DB4C30 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB098E29D8324200DB4C30 /* MainModel.swift */; };
+		CBBB099129D8382500DB4C30 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB099029D8382500DB4C30 /* Date+.swift */; };
+		CBBB099329D8388B00DB4C30 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB099229D8388B00DB4C30 /* DiaryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +47,13 @@
 		CB24304029CEEE6E0046AD0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB24304329CEEE6E0046AD0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB24304529CEEE6E0046AD0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB6C3DCA29D9393500E9BB6D /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
+		CB7A34E429D94F0E002E435D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CB7A34E629D9506C002E435D /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		CB7A34E829D95CE8002E435D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
+		CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoorinator.swift; sourceTree = "<group>"; };
+		CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		CBBB094E29D7EFC000DB4C30 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		CBBB095229D7F07400DB4C30 /* SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImage.swift; sourceTree = "<group>"; };
 		CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundView.swift; sourceTree = "<group>"; };
@@ -46,10 +62,12 @@
 		CBBB095F29D7F54C00DB4C30 /* UITableViewCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellRegister.swift; sourceTree = "<group>"; };
 		CBBB096229D7F78A00DB4C30 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		CBBB096529D7F92600DB4C30 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		CBBB098829D81A0200DB4C30 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CBBB098829D81A0200DB4C30 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		CBBB098A29D823D900DB4C30 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		CBBB098E29D8324200DB4C30 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		CBBB099029D8382500DB4C30 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		CBBB099229D8388B00DB4C30 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				CBBB095729D7F19500DB4C30 /* MainViewController */,
-				CBBB098729D819EE00DB4C30 /* DtailViewController */,
+				CBBB098729D819EE00DB4C30 /* CreateViewController */,
+				CB7A34E329D94C34002E435D /* DetailDiaryViewController */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -117,11 +136,23 @@
 			path = "Today Diary";
 			sourceTree = "<group>";
 		};
+		CB7A34E329D94C34002E435D /* DetailDiaryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */,
+				CB7A34E429D94F0E002E435D /* DetailViewController.swift */,
+			);
+			path = DetailDiaryViewController;
+			sourceTree = "<group>";
+		};
 		CBBB095029D7F02C00DB4C30 /* Extenstion */ = {
 			isa = PBXGroup;
 			children = (
-				CBBB098A29D823D900DB4C30 /* UITextField+.swift */,
 				CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */,
+				CBBB098A29D823D900DB4C30 /* UITextField+.swift */,
+				CBBB099029D8382500DB4C30 /* Date+.swift */,
+				CB6C3DCA29D9393500E9BB6D /* DateFormatter+.swift */,
+				CB7A34E629D9506C002E435D /* UIFont+.swift */,
 			);
 			path = Extenstion;
 			sourceTree = "<group>";
@@ -163,10 +194,11 @@
 		CBBB095729D7F19500DB4C30 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */,
 				CB24303B29CEEE6E0046AD0C /* MainViewController.swift */,
 				CBBB096529D7F92600DB4C30 /* MainViewModel.swift */,
-				CBBB095629D7F18D00DB4C30 /* DiaryList */,
 				CBBB098E29D8324200DB4C30 /* MainModel.swift */,
+				CBBB095629D7F18D00DB4C30 /* DiaryList */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -175,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				CBBB095F29D7F54C00DB4C30 /* UITableViewCellRegister.swift */,
+				CB7A34E829D95CE8002E435D /* Coordinator.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -183,16 +216,18 @@
 			isa = PBXGroup;
 			children = (
 				CBBB096229D7F78A00DB4C30 /* Diary.swift */,
+				CBBB099229D8388B00DB4C30 /* DiaryManager.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		CBBB098729D819EE00DB4C30 /* DtailViewController */ = {
+		CBBB098729D819EE00DB4C30 /* CreateViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CBBB098829D81A0200DB4C30 /* DetailViewController.swift */,
+				CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */,
+				CBBB098829D81A0200DB4C30 /* CreateViewController.swift */,
 			);
-			path = DtailViewController;
+			path = CreateViewController;
 			sourceTree = "<group>";
 		};
 		DEC0A61058BF32A4BAFE8D0B /* Pods */ = {
@@ -319,18 +354,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBBB098929D81A0200DB4C30 /* DetailViewController.swift in Sources */,
+				CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */,
+				CBBB098929D81A0200DB4C30 /* CreateViewController.swift in Sources */,
+				CBBB099329D8388B00DB4C30 /* DiaryManager.swift in Sources */,
+				CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */,
+				CB7A34E729D9506C002E435D /* UIFont+.swift in Sources */,
 				CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */,
 				CBBB098D29D8309200DB4C30 /* UserDefaults+.swift in Sources */,
 				CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */,
+				CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */,
+				CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */,
 				CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */,
 				CBBB095D29D7F52300DB4C30 /* DiaryListCell.swift in Sources */,
+				CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */,
 				CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */,
 				CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */,
+				CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */,
 				CBBB096629D7F92600DB4C30 /* MainViewModel.swift in Sources */,
 				CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */,
 				CBBB098F29D8324200DB4C30 /* MainModel.swift in Sources */,
 				CBBB096029D7F54C00DB4C30 /* UITableViewCellRegister.swift in Sources */,
+				CBBB099129D8382500DB4C30 /* Date+.swift in Sources */,
 				CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */,
 				CBBB096329D7F78A00DB4C30 /* Diary.swift in Sources */,
 			);

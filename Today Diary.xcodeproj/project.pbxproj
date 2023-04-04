@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
+		CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0780C229DBDF40009FAADB /* DetailViewModel.swift */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
 		CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */; };
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
@@ -20,7 +21,6 @@
 		CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */; };
 		CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */; };
 		CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */; };
-		CB7A34F129DA8930002E435D /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34F029DA8930002E435D /* DetailViewModel.swift */; };
 		CB7A34F329DA8C8A002E435D /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34F229DA8C8A002E435D /* CreateViewModel.swift */; };
 		CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095229D7F07400DB4C30 /* SystemImage.swift */; };
 		CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */; };
@@ -40,6 +40,7 @@
 		0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.debug.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.debug.xcconfig"; sourceTree = "<group>"; };
 		15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.release.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.release.xcconfig"; sourceTree = "<group>"; };
 		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0780C229DBDF40009FAADB /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,7 +55,6 @@
 		CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoorinator.swift; sourceTree = "<group>"; };
 		CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		CB7A34F029DA8930002E435D /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CB7A34F229DA8C8A002E435D /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		CBBB095229D7F07400DB4C30 /* SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImage.swift; sourceTree = "<group>"; };
 		CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundView.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			children = (
 				CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */,
 				CB7A34E429D94F0E002E435D /* DetailViewController.swift */,
-				CB7A34F029DA8930002E435D /* DetailViewModel.swift */,
+				CB0780C229DBDF40009FAADB /* DetailViewModel.swift */,
 			);
 			path = DetailDiaryViewController;
 			sourceTree = "<group>";
@@ -365,10 +365,10 @@
 				CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */,
 				CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */,
 				CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */,
-				CB7A34F129DA8930002E435D /* DetailViewModel.swift in Sources */,
 				CBBB095D29D7F52300DB4C30 /* DiaryListCell.swift in Sources */,
 				CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */,
 				CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */,
+				CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */,
 				CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */,
 				CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */,
 				CBBB096629D7F92600DB4C30 /* MainViewModel.swift in Sources */,

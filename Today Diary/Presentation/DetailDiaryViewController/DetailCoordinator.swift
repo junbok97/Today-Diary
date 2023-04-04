@@ -9,8 +9,7 @@ import UIKit
 
 protocol DetailCoordinator: Coordinator {
     var parentCoordinator: MainCoordinator? { get }
-    
-    func start(diary: Diary)
+    func start(_ viewModel: DetailViewModel)
     func showEditViewController(diary: Diary)
     func finish()
 }
@@ -29,9 +28,9 @@ final class DefaultDetailCoordinator: DetailCoordinator {
         self.navi = navi
     }
     
-    func start(diary: Diary) {
-        let viewModel = DetailViewModel(id: diary.id)
-        let detailViewController = DetailViewController(viewModel: viewModel)
+    func start(_ viewModel: DetailViewModel) {
+        let detailViewController = DetailViewController()
+        detailViewController.bind(viewModel)
         detailViewController.coordinator = self
         navi.pushViewController(detailViewController, animated: false)
     }

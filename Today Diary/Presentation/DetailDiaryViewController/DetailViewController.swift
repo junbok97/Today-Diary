@@ -6,21 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 final class DetailViewController: UIViewController {
     
-    let viewModel: DetailViewModel
     var coordinator: DetailCoordinator?
-    
-    var diary: Diary? {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.titleLabel.text = self?.diary!.title
-                self?.dateLabel.text = self?.diary!.date
-                self?.contentLabel.text = self?.diary!.content
-            }
-        }
-    }
+    let disposeBag = DisposeBag()
     
     private lazy var editBarButtonItem: UIBarButtonItem = {
         let barbutton = UIBarButtonItem(title: "edit", style: .plain, target: self, action: #selector(editButtonTapped))
@@ -42,14 +33,14 @@ final class DetailViewController: UIViewController {
         return view
     }()
     
-    private lazy var dateLabel: UILabel = {
+    lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = .subTitleFont()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .titleFont()
         label.numberOfLines = 0
@@ -57,7 +48,7 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
-    private lazy var contentLabel: UILabel = {
+    lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.font = .contentFont()
         label.numberOfLines = 0
@@ -65,24 +56,25 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: DetailViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.diary = viewModel.getDiary()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+//        self.diary = viewModel?.getDiary()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
+    }
+    
+    func bind(_ viewModel: DetailViewModel) {
+        editBarButtonItem.rx.tap
+            .bind(to: viewModel.editButtonTapped)
+            .disposed(by: disposeBag)    
+        
+        viewModel.diary
+            .drive(self.rx.diary)
+            .disposed(by: disposeBag)
     }
     
     deinit {
@@ -141,6 +133,17 @@ private extension DetailViewController {
 // MARK: - @objc
 private extension DetailViewController {
     @objc func editButtonTapped() {
-        coordinator?.showEditViewController(diary: diary!)
+//        coordinator?.showEditViewController(diary: diary!)
+    }
+}
+
+
+extension Reactive where Base: DetailViewController {
+    var diary: Binder<Diary> {
+        return Binder(base) { base, diary in
+            base.titleLabel.text = diary.title
+            base.dateLabel.text = diary.date
+            base.contentLabel.text = diary.date
+        }
     }
 }

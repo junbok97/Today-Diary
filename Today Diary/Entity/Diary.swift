@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import RxSwift
 
 struct Diary: Codable {
+    
     // TODO: id와 date private로 변경예정
     let id: String
     let date: String

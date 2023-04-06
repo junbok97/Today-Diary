@@ -16,10 +16,10 @@ final class MainViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let diaryManager = DiaryManager.shared
-    private let selectedDateRelay = BehaviorRelay<Date>(value: Date())
+    private let selectedDateSubject = PublishSubject<Date>()
     
     private lazy var addDiaryButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: #selector(addDiaryButtonTapped)) // TODO: action 추가
+        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: nil)
         barButton.tintColor = .label
         return barButton
     }()
@@ -29,7 +29,6 @@ final class MainViewController: UIViewController {
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
         calendar.delegate = self
-        calendar.dataSource = self
         // 전월이나 다음월의 일수를 표현할 것인지
         // ex) 30 31 1 2 3 or 1 2 3
         calendar.placeholderType = .none
@@ -38,7 +37,6 @@ final class MainViewController: UIViewController {
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         // 전달 or 다음달의 투명도
         calendar.appearance.headerMinimumDissolvedAlpha = 0
-        
         calendar.appearance.headerTitleColor = .label
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.selectionColor = .label
@@ -46,7 +44,6 @@ final class MainViewController: UIViewController {
         calendar.appearance.eventSelectionColor = .red
         calendar.appearance.titleDefaultColor = .label
         calendar.appearance.titleSelectionColor = .systemBackground
-
         calendar.tintColor = .label
         calendar.translatesAutoresizingMaskIntoConstraints = false
         return calendar
@@ -55,8 +52,8 @@ final class MainViewController: UIViewController {
     private lazy var diaryList: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
-//        tableView.delegate = self
-//        tableView.dataSource = self
+        //        tableView.delegate = self
+        //        tableView.dataSource = self
         tableView.backgroundColor = .secondarySystemBackground
         tableView.backgroundView = diaryListBackgroundView
         DiaryListCell.register(target: tableView)
@@ -71,17 +68,27 @@ final class MainViewController: UIViewController {
         layout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        calendar.reloadData()
+    }
+    
     // TODO: 완성중 ...
     func bind(_ viewModel: MainViewModel) {
+        addDiaryButton.rx.tap
+            .bind(to: viewModel.addDiaryButtonTapped)
+            .disposed(by: disposeBag)
         
         
         diaryListBackgroundView
             .bind(viewModel.diaryListBackgroundViewModel)
-
-        selectedDateRelay
+        
+        
+        selectedDateSubject
+            .startWith(Date())
             .bind(to: viewModel.selectDate)
             .disposed(by: disposeBag)
-
+        
         diaryList.rx.itemSelected
             .bind(to: viewModel.selectRow)
             .disposed(by: disposeBag)
@@ -94,10 +101,14 @@ final class MainViewController: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
-
         
-        viewModel.showDetailDiary
-            .drive(self.rx.showDetailDiary)
+        
+        viewModel.showDetailViewController
+            .emit(to: self.rx.showDetailViewController)
+            .disposed(by: disposeBag)
+        
+        viewModel.showCreateViewController
+            .emit(to: self.rx.showCreateViewController)
             .disposed(by: disposeBag)
     }
     
@@ -127,26 +138,15 @@ private extension MainViewController {
         ])
     }
     
-
-}
-
-// MARK: - @objc
-private extension MainViewController {
-    @objc func addDiaryButtonTapped() {
-        coordinator?.showCreateViewController(date: calendar.selectedDate ?? Date())
-    }
-}
-
-// MARK: - FSCalendarDataSource
-extension MainViewController: FSCalendarDataSource {
     
 }
+
 
 // MARK: - FSCalendarDelegate
 extension MainViewController: FSCalendarDelegate {
     // 날짜 선택 시 콜백 메소드
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        selectedDateRelay.accept(date)
+        selectedDateSubject.onNext(date)
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
@@ -209,9 +209,15 @@ extension MainViewController: FSCalendarDelegate {
 
 // MARK: - Extension Reactive
 extension Reactive where Base: MainViewController {
-    var showDetailDiary: Binder<DetailViewModel> {
-        return Binder(base) { base, detailViewModel in
-            base.coordinator?.showDetailViewController(detailViewModel)
+    var showDetailViewController: Binder<DetailViewModel> {
+        return Binder(base) { base, viewModel in
+            base.coordinator?.showDetailViewController(viewModel)
+        }
+    }
+    
+    var showCreateViewController: Binder<CreateViewModel> {
+        return Binder(base) { base, viewModel in
+            base.coordinator?.showCreateViewController(viewModel)
         }
     }
 }

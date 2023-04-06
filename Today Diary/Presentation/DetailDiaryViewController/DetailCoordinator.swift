@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol DetailCoordinator: Coordinator {
     var parentCoordinator: MainCoordinator? { get }
     func start(_ viewModel: DetailViewModel)
-    func showEditViewController(diary: Diary)
+    func showCreateViewController(_ viewModel: CreateViewModel)
     func finish()
 }
 
@@ -39,8 +41,8 @@ final class DefaultDetailCoordinator: DetailCoordinator {
         parentCoordinator?.finishChild(self)
     }
     
-    func showEditViewController(diary: Diary) {
-        parentCoordinator?.showEditViewController(diary: diary)
+    func showCreateViewController(_ viewModel: CreateViewModel) {
+        parentCoordinator?.showCreateViewController(viewModel)
     }
 
 

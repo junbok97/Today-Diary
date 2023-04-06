@@ -1,40 +1,47 @@
 //
-//  CreateViewModel.swift
+//  CreateModel.swift
 //  Today Diary
 //
-//  Created by 이준복 on 2023/04/03.
+//  Created by 이준복 on 2023/04/05.
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 struct CreateViewModel {
+    private let disposeBag = DisposeBag()
     
-    private var diary: Diary
-    private let isHasDiary: Bool
+    // ViewModel -> View
+    let getDiary: Driver<Diary>
+    let popViewController: Signal<Void>
     
-    init(date: Date = Date(), diary: Diary?) {
-        if let diary = diary {
-            self.diary = diary
-            self.isHasDiary = true
-        } else {
-            self.diary = Diary(title: "", content: "", date: date)
-            self.isHasDiary = false
-        }
-    }
+    // View -> ViewModel
+    let saveButtonTapped = PublishRelay<Void>()
     
-    mutating func saveDiary(title: String, content: String) {
-        diary.title = title
-        diary.content = content
+    // 외부에서 전달받을 값
+    let deliveryDiary = PublishSubject<Diary>()
+    
+    // ViewController -> ParentsViewController
+    let diaryEditDone = PublishRelay<Diary>()
+    init() {
         
-        if isHasDiary {
-            DiaryManager.shared.editDiary(diary)
-        } else {
-            DiaryManager.shared.addDiray(diary)
-        }
-    }
-    
-    func getDiary() -> Diary {
-        return diary
+        getDiary = deliveryDiary
+            .asDriver(onErrorDriveWith: .empty())
+        
+        
+        // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
+        saveButtonTapped
+            .withLatestFrom(deliveryDiary) { _, diary in
+                DiaryManager.shared.editDiary(diary)
+                return diary
+            }
+            .bind(to: diaryEditDone)
+            .disposed(by: disposeBag)
+            
+            
+        popViewController = saveButtonTapped
+            .asSignal(onErrorSignalWith: .empty())
     }
     
 }

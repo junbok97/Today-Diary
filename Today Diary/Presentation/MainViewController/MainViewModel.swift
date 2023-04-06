@@ -16,10 +16,11 @@ struct MainViewModel {
     
     // ViewModel -> View
     let diaryListCellData: Driver<[Diary]>
-    let showDetailDiary: Driver<DetailViewModel>
+    let showDetailViewController: Signal<DetailViewModel>
+    let showCreateViewController: Signal<CreateViewModel>
     
     // View -> ViewModel
-    let addDiaryButtonTapped = PublishRelay<Date>()
+    let addDiaryButtonTapped = PublishRelay<Void>()
     let deleteDiary = PublishRelay<IndexPath>()
     let selectDate = PublishRelay<Date>()
     let selectRow = PublishRelay<IndexPath>()
@@ -29,6 +30,10 @@ struct MainViewModel {
     
     
     init() {
+        // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
+        
+        
+        
         selectDate
             .map { DiaryManager.shared.queryDiary($0) }
             .bind(to: diaryData)
@@ -49,11 +54,11 @@ struct MainViewModel {
         
         let detailViewModel = DetailViewModel()
         
-        showDetailDiary = selectRow
+        showDetailViewController = selectRow
             .map { _ -> DetailViewModel in
                 return detailViewModel
             }
-            .asDriver(onErrorDriveWith: .empty())
+            .asSignal(onErrorSignalWith: .empty())
         
         selectRow
             .withLatestFrom(diaryData) { indexPath, diaryList  in
@@ -61,6 +66,20 @@ struct MainViewModel {
             }
             .bind(to: detailViewModel.diaryId)
             .disposed(by: disposeBag)
+        
+        
+        let createViewModel = CreateViewModel()
+        
+        addDiaryButtonTapped
+            .withLatestFrom(selectDate) { _, selectDate -> Diary in
+                return Diary(title: "", contents: "", date: selectDate)
+            }
+            .bind(to: createViewModel.deliveryDiary)
+            .disposed(by: disposeBag)
+        
+        showCreateViewController = addDiaryButtonTapped
+            .map { createViewModel }
+            .asSignal(onErrorSignalWith: .empty())
     }
     
     

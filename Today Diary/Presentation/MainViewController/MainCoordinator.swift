@@ -8,9 +8,8 @@
 import UIKit
 
 protocol MainCoordinator: Coordinator {
-    func showCreateViewController(date: Date)
+    func showCreateViewController(_ viewModel: CreateViewModel)
     func showDetailViewController(_ viewModel: DetailViewModel)
-    func showEditViewController(diary: Diary)
     func finishChild(_ child: Coordinator)
 }
 
@@ -32,18 +31,11 @@ final class DefaultMainCoordinator: MainCoordinator {
         navi.pushViewController(mainViewController, animated: false)
     }
     
-    func showCreateViewController(date: Date) {
+    func showCreateViewController(_ viewModel: CreateViewModel) {
         let child = DefaultCreateCoorinator(navi: self.navi)
         child.parentCoordinator = self
         childCoordinators.append(child)
-        child.startCreate(date: date)
-    }
-    
-    func showEditViewController(diary: Diary) {
-        let child = DefaultCreateCoorinator(navi: self.navi)
-        child.parentCoordinator = self
-        childCoordinators.append(child)
-        child.startEdit(diary: diary)
+        child.start(viewModel)
     }
         
     func showDetailViewController(_ viewModel: DetailViewModel) {

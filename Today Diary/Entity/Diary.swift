@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RxSwift
 
 struct Diary: Codable {
     
@@ -14,12 +13,12 @@ struct Diary: Codable {
     let id: String
     let date: String
     var title: String
-    var content: String
+    var contents: String
     
-    init(title: String, content: String, date: Date) {
+    init(title: String, contents: String, date: Date) {
         self.id = UUID().uuidString
         self.title = title
-        self.content = content
+        self.contents = contents
         self.date = DateFormatter().toString(date: date)
     }
 }

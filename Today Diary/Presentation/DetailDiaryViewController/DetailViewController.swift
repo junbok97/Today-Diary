@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     private lazy var editBarButtonItem: UIBarButtonItem = {
-        let barbutton = UIBarButtonItem(title: "edit", style: .plain, target: self, action: #selector(editButtonTapped))
+        let barbutton = UIBarButtonItem(title: "edit", style: .plain, target: self, action: nil)
         barbutton.tintColor = .label
         return barbutton
     }()
@@ -56,11 +56,6 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.diary = viewModel?.getDiary()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -72,14 +67,16 @@ final class DetailViewController: UIViewController {
             .bind(to: viewModel.editButtonTapped)
             .disposed(by: disposeBag)    
         
-        viewModel.diary
+        viewModel.getDiary
             .drive(self.rx.diary)
             .disposed(by: disposeBag)
+        
+        viewModel.showCreateViewController
+            .emit(to: self.rx.showCreateViewController)
+            .disposed(by: disposeBag)
+            
     }
-    
-    deinit {
-        coordinator?.finish()
-    }
+
 }
 
 // MARK: - setup
@@ -130,20 +127,19 @@ private extension DetailViewController {
     }
 }
 
-// MARK: - @objc
-private extension DetailViewController {
-    @objc func editButtonTapped() {
-//        coordinator?.showEditViewController(diary: diary!)
-    }
-}
-
 
 extension Reactive where Base: DetailViewController {
     var diary: Binder<Diary> {
         return Binder(base) { base, diary in
             base.titleLabel.text = diary.title
             base.dateLabel.text = diary.date
-            base.contentLabel.text = diary.date
+            base.contentLabel.text = diary.contents
+        }
+    }
+    
+    var showCreateViewController: Binder<CreateViewModel> {
+        return Binder(base) { base, viewModel in
+            base.coordinator?.showCreateViewController(viewModel)
         }
     }
 }

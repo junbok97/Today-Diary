@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class CreateViewController: UIViewController {
     private let contentPlaceHolder = "Pleas Insert Content ..."
@@ -13,18 +15,19 @@ final class CreateViewController: UIViewController {
     private let offset: CGFloat = 12.0
     private let borderWidth: CGFloat = 1.0
     private let textFieldHeight: CGFloat = 65.0
+    private let disposeBag = DisposeBag()
 
-    private var viewModel: CreateViewModel
     var coordinator: CreateCoorinator?
-    var stackViewBottomConstraint: NSLayoutConstraint!
+    private var stackViewBottomConstraint: NSLayoutConstraint!
     
-    private lazy var doneButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(doneButtonTapped))
+    
+    private lazy var saveButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: nil)
         barButtonItem.tintColor = .label
         return barButtonItem
     }()
     
-    private lazy var titleTextField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .titleFont()
@@ -37,7 +40,7 @@ final class CreateViewController: UIViewController {
         return textField
     }()
     
-    private lazy var contentTextView: UITextView = {
+    lazy var contentsTextView: UITextView = {
         let textView = UITextView()
         textView.font = .contentFont()
         textView.textColor = .secondaryLabel
@@ -50,7 +53,7 @@ final class CreateViewController: UIViewController {
     }()
     
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTextField, contentTextView])
+        let stackView = UIStackView(arrangedSubviews: [titleTextField, contentsTextView])
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
@@ -58,15 +61,8 @@ final class CreateViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
-    init(viewModel: CreateViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     override func viewDidLoad() {
         attribute()
@@ -81,9 +77,19 @@ final class CreateViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.removeKeyboardNotifications()
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        coordinator?.finish()
+    
+    func bind(_ viewModel: CreateViewModel) {
+        saveButton.rx.tap
+            .bind(to: viewModel.saveButtonTapped)
+            .disposed(by: disposeBag)
+
+        viewModel.getDiary
+            .drive(self.rx.setupContents)
+            .disposed(by: disposeBag)
+        
+        viewModel.popViewController
+            .emit(to: self.rx.popViewController)
+            .disposed(by: disposeBag)
     }
     
 }
@@ -93,13 +99,7 @@ private extension CreateViewController {
     func attribute() {
         navigationItem.title = "Write Diary"
         navigationController?.navigationBar.tintColor = .label
-        navigationItem.rightBarButtonItem = doneButton
-        
-        let diary = viewModel.getDiary()
-        titleTextField.text = diary.title
-        contentTextView.text = diary.content
-        contentTextView.textColor = .label
-    
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     func layout() {
@@ -119,19 +119,8 @@ private extension CreateViewController {
     }
 }
 
-// MARK: - @objc
+// MARK: -
 private extension CreateViewController {
-    // 저장
-    @objc func doneButtonTapped() {
-        let title = titleTextField.text ?? ""
-        let content = contentTextView.text ?? contentPlaceHolder
-        if title == "" || content == contentPlaceHolder  {
-            alert()
-        } else {
-            viewModel.saveDiary(title: title, content: content)
-            coordinator?.saveFinish()
-        }
-    }
     
     func alert() {
         let alertController = UIAlertController(title: "알림", message: "제목과 내용을 입력해주세요", preferredStyle: .alert)
@@ -199,5 +188,21 @@ extension CreateViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension Reactive where Base: CreateViewController {
+    var setupContents: Binder<Diary> {
+        return Binder(base) { base, diary in
+            base.titleTextField.text = diary.title
+            base.contentsTextView.text = diary.contents
+            base.contentsTextView.textColor = .label
+        }
+    }
+    
+    var popViewController: Binder<Void> {
+        return Binder(base) { base, _ in
+            base.coordinator?.finish()
+        }
     }
 }

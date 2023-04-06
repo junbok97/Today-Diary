@@ -16,7 +16,8 @@ struct DetailViewModel {
     let disposeBag = DisposeBag()
     
     // ViewModel -> View
-    let diary: Driver<Diary>
+    let getDiary: Driver<Diary>
+    let showCreateViewController: Signal<CreateViewModel>
     
     // View -> ViewModel
     let editButtonTapped = PublishRelay<Void>()
@@ -27,21 +28,27 @@ struct DetailViewModel {
     
     
     init() {
-        diary = diaryId
+        getDiary = diaryId
             .compactMap { DiaryManager.shared.getDiary($0) }
             .asDriver(onErrorDriveWith: .empty())
         
-        diary
+        getDiary
             .drive()
             .disposed(by: disposeBag)
         
         
-        
+        let createViewModel = CreateViewModel()
         editButtonTapped
-            .subscribe(onNext: {print("Tap")})
+            .withLatestFrom(getDiary) { _, diary -> Diary in
+                return diary
+            }
+            .bind(to: createViewModel.deliveryDiary)
             .disposed(by: disposeBag)
+        
+        
+        showCreateViewController = editButtonTapped
+            .map { createViewModel }
+            .asSignal(onErrorSignalWith: .empty())
     }
-    
-    
 }
 

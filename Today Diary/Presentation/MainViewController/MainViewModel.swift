@@ -21,23 +21,26 @@ struct MainViewModel {
     
     // View -> ViewModel
     let addDiaryButtonTapped = PublishRelay<Void>()
-    let deleteDiary = PublishRelay<IndexPath>()
+    let deleteRow = PublishRelay<IndexPath>()
     let selectDate = PublishRelay<Date>()
     let selectRow = PublishRelay<IndexPath>()
-    
     let diaryData = PublishSubject<[Diary]>()
     
     
     
     init() {
-        // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
-        
-        
-        
         selectDate
             .map { DiaryManager.shared.queryDiary($0) }
             .bind(to: diaryData)
             .disposed(by: disposeBag)
+        
+        deleteRow
+            .withLatestFrom(diaryData) { indexPath, diaryList  in
+                DiaryManager.shared.deleteDiary(diaryList[indexPath.row])
+            }
+            .bind(to: diaryData)
+            .disposed(by: disposeBag)
+        
         
         diaryData
             .map { !$0.isEmpty } // 비어있으면 isHidden = false 비어있지 않으면 isHidden = true
@@ -52,8 +55,9 @@ struct MainViewModel {
             .disposed(by: disposeBag)
 
         
-        let detailViewModel = DetailViewModel()
         
+        // MARK: - DetailViewModel
+        let detailViewModel = DetailViewModel()
         showDetailViewController = selectRow
             .map { _ -> DetailViewModel in
                 return detailViewModel
@@ -67,9 +71,9 @@ struct MainViewModel {
             .bind(to: detailViewModel.deliveryDiary)
             .disposed(by: disposeBag)
         
-        
+   
+        // MARK: - CreateViewModel
         let createViewModel = CreateViewModel()
-        
         createViewModel.diaryEditDone
             .withLatestFrom(selectDate) { _, selectDate in
                 DiaryManager.shared.queryDiary(selectDate)

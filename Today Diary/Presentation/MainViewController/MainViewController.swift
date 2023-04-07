@@ -93,6 +93,10 @@ final class MainViewController: UIViewController {
             .bind(to: viewModel.selectRow)
             .disposed(by: disposeBag)
         
+        diaryList.rx.itemDeleted
+            .bind(to: viewModel.deleteRow)
+            .disposed(by: disposeBag)
+            
         
         viewModel.diaryListCellData
             .drive(diaryList.rx.items) { tableView, row, item in

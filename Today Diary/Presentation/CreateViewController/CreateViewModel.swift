@@ -29,7 +29,6 @@ struct CreateViewModel {
         getDiary = deliveryDiary
             .asDriver(onErrorDriveWith: .empty())
             
-            
         getDiary
             .drive()
             .disposed(by: disposeBag)

@@ -29,7 +29,7 @@ final class DiaryManager {
         saveDiary()
     }
     
-    func deleteDiary(_ target: Diary) {
+    func deleteDiary(_ target: Diary) -> [Diary] {
         
         for (index, diary) in diaryList.enumerated() {
             if target.id == diary.id {
@@ -38,6 +38,7 @@ final class DiaryManager {
             }
         }
         saveDiary()
+        return diaryList
     }
     
     func editDiary(_ target: Diary) {

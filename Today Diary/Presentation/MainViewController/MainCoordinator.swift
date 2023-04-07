@@ -14,7 +14,6 @@ protocol MainCoordinator: Coordinator {
 }
 
 final class DefaultMainCoordinator: MainCoordinator {
-    // TODO: 완성 중 ..
     let mainViewModel = MainViewModel()
     var childCoordinators: [Coordinator] = []
     

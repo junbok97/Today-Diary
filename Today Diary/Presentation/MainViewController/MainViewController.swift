@@ -80,7 +80,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTodayDiarys()
-        
+        calendar.reloadData()
     }
 
     // TODO: 완성중 ...

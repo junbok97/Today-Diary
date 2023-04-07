@@ -79,9 +79,15 @@ final class CreateViewController: UIViewController {
     }
     
     func bind(_ viewModel: CreateViewModel) {
+        // TODO: Title과 Contents 전달
+
         saveButton.rx.tap
+            .map { [weak self] in
+                guard let self = self else { return ("", "") }
+                return (self.titleTextField.text ?? "" , self.contentsTextView.text)
+            }
             .bind(to: viewModel.saveButtonTapped)
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag)        
 
         viewModel.getDiary
             .drive(self.rx.setupContents)

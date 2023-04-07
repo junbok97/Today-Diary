@@ -62,17 +62,26 @@ struct MainViewModel {
         
         selectRow
             .withLatestFrom(diaryData) { indexPath, diaryList  in
-                diaryList[indexPath.row].id
+                diaryList[indexPath.row]
             }
-            .bind(to: detailViewModel.diaryId)
+            .bind(to: detailViewModel.deliveryDiary)
             .disposed(by: disposeBag)
         
         
         let createViewModel = CreateViewModel()
         
+        createViewModel.diaryEditDone
+            .withLatestFrom(selectDate) { _, selectDate in
+                DiaryManager.shared.queryDiary(selectDate)
+            }
+            .bind(to: diaryData)
+            .disposed(by: disposeBag)
+        
         addDiaryButtonTapped
             .withLatestFrom(selectDate) { _, selectDate -> Diary in
-                return Diary(title: "", contents: "", date: selectDate)
+                let diary = Diary(title: "", contents: "", date: selectDate)
+                DiaryManager.shared.addDiray(diary)
+                return diary
             }
             .bind(to: createViewModel.deliveryDiary)
             .disposed(by: disposeBag)

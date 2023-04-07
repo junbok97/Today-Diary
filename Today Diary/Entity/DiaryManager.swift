@@ -41,7 +41,6 @@ final class DiaryManager {
     }
     
     func editDiary(_ target: Diary) {
-        
         for (index, diary) in diaryList.enumerated() {
             if target.id == diary.id {
                 diaryList[index] = target

@@ -23,13 +23,12 @@ struct DetailViewModel {
     let editButtonTapped = PublishRelay<Void>()
     
     // 외부에서 전달받을 값
-    let diaryId = PublishSubject<String>()
+    let deliveryDiary = PublishSubject<Diary>()
     
-    
+
     
     init() {
-        getDiary = diaryId
-            .compactMap { DiaryManager.shared.getDiary($0) }
+        getDiary = deliveryDiary
             .asDriver(onErrorDriveWith: .empty())
         
         getDiary
@@ -38,6 +37,11 @@ struct DetailViewModel {
         
         
         let createViewModel = CreateViewModel()
+        createViewModel.diaryEditDone
+            .bind(to: deliveryDiary)
+            .disposed(by: disposeBag)
+            
+        
         editButtonTapped
             .withLatestFrom(getDiary) { _, diary -> Diary in
                 return diary

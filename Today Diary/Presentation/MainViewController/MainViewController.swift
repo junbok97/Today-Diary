@@ -70,10 +70,6 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-<<<<<<< HEAD
-        updateTodayDiarys()
-        calendar.reloadData()
-=======
         calendar.reloadData()
     }
     
@@ -118,7 +114,6 @@ final class MainViewController: UIViewController {
         viewModel.showCreateViewController
             .emit(to: self.rx.showCreateViewController)
             .disposed(by: disposeBag)
->>>>>>> rxSwift
     }
     
 }

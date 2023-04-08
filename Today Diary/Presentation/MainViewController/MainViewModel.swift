@@ -45,7 +45,7 @@ struct MainViewModel {
             .asDriver(onErrorDriveWith: .empty())
         
         selectDate
-            .map { _ in Void() }
+            .map { _ in return Void() }
             .bind(to: reloadDiaryData)
             .disposed(by: disposeBag)
         
@@ -74,9 +74,7 @@ struct MainViewModel {
             .disposed(by: disposeBag)
         
         showDetailViewController = selectRow
-            .map { _ -> DetailViewModel in
-                return detailViewModel
-            }
+            .map { _ in return detailViewModel }
             .asSignal(onErrorSignalWith: .empty())
         
         selectRow
@@ -98,8 +96,10 @@ struct MainViewModel {
             .disposed(by: disposeBag)
         
         addDiaryButtonTapped
-            .map { nil }
-            .bind(to: createViewModel.receiveDiary)
+            .withLatestFrom(selectDate) { _, date in
+                return (date, nil)
+            }
+            .bind(to: createViewModel.receiveData)
             .disposed(by: disposeBag)
         
         showCreateViewController = addDiaryButtonTapped

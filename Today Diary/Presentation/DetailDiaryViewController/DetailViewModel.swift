@@ -46,10 +46,10 @@ struct DetailViewModel {
             .disposed(by: disposeBag)
 
         editButtonTapped
-            .withLatestFrom(sendDiary) { _, diary -> Diary in
-                return diary
+            .withLatestFrom(sendDiary) { _, diary -> (Date?, Diary) in
+                return (nil, diary)
             }
-            .bind(to: createViewModel.receiveDiary)
+            .bind(to: createViewModel.receiveData)
             .disposed(by: disposeBag)
         
         

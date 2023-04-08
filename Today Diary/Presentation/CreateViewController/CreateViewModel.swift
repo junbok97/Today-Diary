@@ -20,13 +20,15 @@ struct CreateViewModel {
     let saveButtonTapped = PublishRelay<(title: String, contents: String)>()
     
     // 외부에서 전달받을 값
-    let receiveDiary = ReplaySubject<Diary?>.create(bufferSize: 1)
+    let receiveData = ReplaySubject<(date: Date?, diary: Diary?)>.create(bufferSize: 1)
+    
     
     // ViewController -> ParentsViewController
     let diaryEditDone = PublishRelay<Void>()
     
     init() {
-        sendDiary = receiveDiary
+        sendDiary = receiveData
+            .map { $0.diary }
             .asDriver(onErrorDriveWith: .empty())
             
         // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
@@ -34,13 +36,13 @@ struct CreateViewModel {
         // DetailViewModel은 수정한 Diary를
         // MainViewModel은 queryDiary
         saveButtonTapped
-            .withLatestFrom(receiveDiary, resultSelector: { saveData, diary in
-                if var target = diary {
+            .withLatestFrom(receiveData, resultSelector: { saveData, data in
+                if var target = data.diary {
                     target.title = saveData.title
                     target.contents = saveData.contents
                     DiaryManager.shared.editDiary(target)
                 } else {
-                    let target = Diary(title: saveData.title, contents: saveData.contents, date: Date())
+                    let target = Diary(title: saveData.title, contents: saveData.contents, date: data.date ?? Date())
                     DiaryManager.shared.addDiray(target)
                 }
             })

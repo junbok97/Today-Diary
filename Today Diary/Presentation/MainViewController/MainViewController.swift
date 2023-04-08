@@ -10,29 +10,24 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// TODO: CalendarDelegate 수정예정
+
 final class MainViewController: UIViewController {
     
     var coordinator: MainCoordinator?
-//    let selectedDatePublisher = PublishSubject<Date>()
+    
     private let disposeBag = DisposeBag()
-    private let diaryManager = DiaryManager.shared
-    private var todayDiarys: [Diary] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.diaryList.reloadData()
-            }
-        }
-    }
+    private let selectedDateSubject = PublishSubject<Date>()
     
     private lazy var addDiaryButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: #selector(addDiaryButtonTapped)) // TODO: action 추가
+        let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: nil)
         barButton.tintColor = .label
         return barButton
     }()
     
     let diaryListBackgroundView = DiaryListBackgroundView()
     
-    private lazy var calendar: FSCalendar = {
+    lazy var calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
         calendar.delegate = self
         calendar.dataSource = self
@@ -41,10 +36,9 @@ final class MainViewController: UIViewController {
         calendar.placeholderType = .none
         // 달력에 표시되는 헤더
         
-        calendar.appearance.headerDateFormat = "YYYY년 M월"
+        calendar.appearance.headerDateFormat = MainViewControllerContents.calendarHeaderDateFormat
         // 전달 or 다음달의 투명도
         calendar.appearance.headerMinimumDissolvedAlpha = 0
-        
         calendar.appearance.headerTitleColor = .label
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.selectionColor = .label
@@ -52,7 +46,6 @@ final class MainViewController: UIViewController {
         calendar.appearance.eventSelectionColor = .red
         calendar.appearance.titleDefaultColor = .label
         calendar.appearance.titleSelectionColor = .systemBackground
-
         calendar.tintColor = .label
         calendar.translatesAutoresizingMaskIntoConstraints = false
         return calendar
@@ -61,8 +54,6 @@ final class MainViewController: UIViewController {
     private lazy var diaryList: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.backgroundColor = .secondarySystemBackground
         tableView.backgroundView = diaryListBackgroundView
         DiaryListCell.register(target: tableView)
@@ -79,38 +70,64 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+<<<<<<< HEAD
         updateTodayDiarys()
         calendar.reloadData()
+=======
+        calendar.reloadData()
     }
-
-    // TODO: 완성중 ...
-//    func bind(_ viewModel: MainViewModel) {
-//        diaryListBackgroundView
-//            .bind(viewModel.diaryListBackgroundViewModel)
-//
-//        selectedDatePublisher
-//            .bind(to: viewModel.selectDate)
-//            .disposed(by: disposeBag)
-//
-//        viewModel
-//            .diaryListCellData
-//            .drive(diaryList.rx.items) { tableView, row, item in
-//                let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
-//                cell.setData(diary: item)
-//                return cell
-//            }
-//            .disposed(by: disposeBag)
-//
-//    }
+    
+    func bind(_ viewModel: MainViewModel) {
+        addDiaryButton.rx.tap
+            .bind(to: viewModel.addDiaryButtonTapped)
+            .disposed(by: disposeBag)
+        
+        diaryListBackgroundView
+            .bind(viewModel.diaryListBackgroundViewModel)
+        
+        selectedDateSubject
+            .startWith(Date())
+            .bind(to: viewModel.selectDate)
+            .disposed(by: disposeBag)
+        
+        diaryList.rx.itemSelected
+            .bind(to: viewModel.selectRow)
+            .disposed(by: disposeBag)
+        
+        diaryList.rx.itemDeleted
+            .bind(to: viewModel.deleteRow)
+            .disposed(by: disposeBag)
+        
+        viewModel.reloadCalendar
+            .bind(to: self.rx.reloadCalendar)
+            .disposed(by: disposeBag)
+        
+        
+        viewModel.diaryListCellData
+            .drive(diaryList.rx.items) { tableView, row, item in
+                let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
+                cell.setData(diary: item)
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.showDetailViewController
+            .emit(to: self.rx.showDetailViewController)
+            .disposed(by: disposeBag)
+        
+        viewModel.showCreateViewController
+            .emit(to: self.rx.showCreateViewController)
+            .disposed(by: disposeBag)
+>>>>>>> rxSwift
+    }
     
 }
 
 // MARK: - setup
 private extension MainViewController {
     func attribute() {
-        navigationItem.title = "Diary"
+        navigationItem.title = MainViewControllerContents.navigationItemTitle
         navigationItem.rightBarButtonItem = addDiaryButton
-        updateTodayDiarys()
     }
     
     func layout() {
@@ -129,85 +146,38 @@ private extension MainViewController {
         ])
     }
     
-    func updateTodayDiarys() {
-        todayDiarys = diaryManager.queryDiary(calendar.selectedDate ?? Date())
-    }
 }
 
-// MARK: - @objc
-private extension MainViewController {
-    @objc func addDiaryButtonTapped() {
-        coordinator?.showCreateViewController(date: calendar.selectedDate ?? Date())
-    }
-}
-
-// MARK: - FSCalendarDataSource
-extension MainViewController: FSCalendarDataSource {
-    
-}
 
 // MARK: - FSCalendarDelegate
-extension MainViewController: FSCalendarDelegate {
+extension MainViewController: FSCalendarDelegate, FSCalendarDataSource {
     // 날짜 선택 시 콜백 메소드
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        // TODO: 완성중
-//        selectedDatePublisher.onNext(date)
-        updateTodayDiarys()
+        selectedDateSubject.onNext(date)
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        if diaryManager.queryDiary(date).isEmpty {
-            return 0
-        } else {
-            return 1
-        }
+        return DiaryManager.shared.queryDiary(date).isEmpty ? 0 : 1
     }
 }
 
-
-
-// MARK: - UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-        let delete = UIContextualAction(style: .normal, title: "") { [weak self] (_, _, success: @escaping (Bool) -> Void) in
-            // 원하는 액션 추가
-            guard let self = self else { return }
-            self.diaryManager.deleteDiary(self.todayDiarys[indexPath.row])
-            self.updateTodayDiarys()
-            self.calendar.reloadData()
-            success(true)
+// MARK: - Extension Reactive
+extension Reactive where Base: MainViewController {
+    var reloadCalendar: Binder<Void> {
+        return Binder(base) { base, _ in
+            base.calendar.reloadData()
         }
-        
-        // 각 ContextualAction 대한 설정
-        delete.backgroundColor = .systemRed
-        delete.image = UIImage(systemName: "trash.fill")
-        
-        // UISwipeActionsConfiguration에 action을 추가하여 리턴
-        return UISwipeActionsConfiguration(actions: [delete])
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.showDetailViewController(diary: todayDiarys[indexPath.row])
-    }
-    
-}
-
-
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if todayDiarys.count == 0 {
-            diaryListBackgroundView.statusLabel.isHidden = false
-        } else {
-            diaryListBackgroundView.statusLabel.isHidden = true
+    var showDetailViewController: Binder<DetailViewModel> {
+        return Binder(base) { base, viewModel in
+            base.coordinator?.showDetailViewController(viewModel)
         }
-        return todayDiarys.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: indexPath)
-        cell.setData(diary: todayDiarys[indexPath.row])
-        return cell
+    var showCreateViewController: Binder<CreateViewModel> {
+        return Binder(base) { base, viewModel in
+            base.coordinator?.showCreateViewController(viewModel)
+        }
     }
 }

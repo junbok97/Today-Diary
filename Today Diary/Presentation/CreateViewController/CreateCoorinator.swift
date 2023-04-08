@@ -9,11 +9,8 @@ import UIKit
 
 protocol CreateCoorinator: Coordinator {
     var parentCoordinator: MainCoordinator? { get }
-    
-    func startCreate(date: Date)
+    func start(_ viewModel: CreateViewModel)
     func finish()
-    func startEdit(diary: Diary)
-    func saveFinish()
 }
 
 final class DefaultCreateCoorinator: CreateCoorinator {
@@ -28,27 +25,17 @@ final class DefaultCreateCoorinator: CreateCoorinator {
         self.navi = navi
     }
 
-    func startCreate(date: Date) {
-        let viewModel = CreateViewModel(date: date, diary: nil)
-        let createViewController = CreateViewController(viewModel: viewModel)
+    func start(_ viewModel: CreateViewModel) {
+        let createViewController = CreateViewController()
+        createViewController.bind(viewModel)
         createViewController.coordinator = self
         navi.pushViewController(createViewController, animated: false)
     }
     
     func finish() {
-        parentCoordinator?.finishChild(self)
-    }
-    
-    func startEdit(diary: Diary) {
-        let viewModel = CreateViewModel(diary: diary)
-        let createViewController = CreateViewController(viewModel: viewModel)
-        createViewController.coordinator = self
-        navi.pushViewController(createViewController, animated: false)
-    }
-    
-    func saveFinish() {
         navi.popViewController(animated: false)
         parentCoordinator?.finishChild(self)
     }
+    
     
 }

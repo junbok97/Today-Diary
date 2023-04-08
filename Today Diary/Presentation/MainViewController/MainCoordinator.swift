@@ -8,15 +8,13 @@
 import UIKit
 
 protocol MainCoordinator: Coordinator {
-    func showCreateViewController(date: Date)
-    func showDetailViewController(diary: Diary)
-    func showEditViewController(diary: Diary)
+    func showCreateViewController(_ viewModel: CreateViewModel)
+    func showDetailViewController(_ viewModel: DetailViewModel)
     func finishChild(_ child: Coordinator)
 }
 
 final class DefaultMainCoordinator: MainCoordinator {
-    // TODO: 완성 중 ..
-//    let mainViewModel = MainViewModel()
+    let mainViewModel = MainViewModel()
     var childCoordinators: [Coordinator] = []
     
     var navi: UINavigationController
@@ -28,29 +26,22 @@ final class DefaultMainCoordinator: MainCoordinator {
     func start() {
         let mainViewController = MainViewController()
         mainViewController.coordinator = self
-//        mainViewController.bind(mainViewModel)
+        mainViewController.bind(mainViewModel)
         navi.pushViewController(mainViewController, animated: false)
     }
     
-    func showCreateViewController(date: Date) {
+    func showCreateViewController(_ viewModel: CreateViewModel) {
         let child = DefaultCreateCoorinator(navi: self.navi)
         child.parentCoordinator = self
         childCoordinators.append(child)
-        child.startCreate(date: date)
+        child.start(viewModel)
     }
-    
-    func showEditViewController(diary: Diary) {
-        let child = DefaultCreateCoorinator(navi: self.navi)
-        child.parentCoordinator = self
-        childCoordinators.append(child)
-        child.startEdit(diary: diary)
-    }
-    
-    func showDetailViewController(diary: Diary) {
+        
+    func showDetailViewController(_ viewModel: DetailViewModel) {
         let child = DefaultDetailCoordinator(navi: self.navi)
         child.parentCoordinator = self
         childCoordinators.append(child)
-        child.start(diary: diary)
+        child.start(viewModel)
     }
     
     func finishChild(_ child: Coordinator) {

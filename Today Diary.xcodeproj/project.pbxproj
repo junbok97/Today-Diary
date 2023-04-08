@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
 		CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0780C229DBDF40009FAADB /* DetailViewModel.swift */; };
+		CB0B283029E1440800B73921 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B282F29E1440800B73921 /* Contents.swift */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
 		CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */; };
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
@@ -41,6 +42,7 @@
 		15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.release.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.release.xcconfig"; sourceTree = "<group>"; };
 		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0780C229DBDF40009FAADB /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		CB0B282F29E1440800B73921 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				CBBB095229D7F07400DB4C30 /* SystemImage.swift */,
+				CB0B282F29E1440800B73921 /* Contents.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */,
 				CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */,
 				CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */,
+				CB0B283029E1440800B73921 /* Contents.swift in Sources */,
 				CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */,
 				CBBB095D29D7F52300DB4C30 /* DiaryListCell.swift in Sources */,
 				CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */,

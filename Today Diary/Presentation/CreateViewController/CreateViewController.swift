@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 final class CreateViewController: UIViewController {
-    private let contentPlaceHolder = "Pleas Insert Content ..."
     private let inset: CGFloat = 4.0
     private let offset: CGFloat = 12.0
     private let borderWidth: CGFloat = 1.0
@@ -22,14 +21,14 @@ final class CreateViewController: UIViewController {
     
     
     private lazy var saveButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: nil)
+        let barButtonItem = UIBarButtonItem(title: CreateViewControllerContents.rightBarButtonItemTitle, style: .plain, target: self, action: nil)
         barButtonItem.tintColor = .label
         return barButtonItem
     }()
     
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Title"
+        textField.placeholder = CreateViewControllerContents.titleTextFieldPlaceHolder
         textField.font = .titleFont()
         textField.layer.borderWidth = borderWidth
         textField.layer.borderColor = UIColor.label.cgColor
@@ -44,7 +43,7 @@ final class CreateViewController: UIViewController {
         let textView = UITextView()
         textView.font = .contentFont()
         textView.textColor = .secondaryLabel
-        textView.text = contentPlaceHolder
+        textView.text = CreateViewControllerContents.contentsTextViewPlaceHolder
         textView.delegate = self
         textView.layer.borderWidth = borderWidth
         textView.layer.borderColor = UIColor.label.cgColor
@@ -79,8 +78,6 @@ final class CreateViewController: UIViewController {
     }
     
     func bind(_ viewModel: CreateViewModel) {
-        // TODO: Title과 Contents 전달
-
         saveButton.rx.tap
             .map { [weak self] in
                 guard let self = self else { return ("", "") }
@@ -89,7 +86,7 @@ final class CreateViewController: UIViewController {
             .bind(to: viewModel.saveButtonTapped)
             .disposed(by: disposeBag)        
 
-        viewModel.getDiary
+        viewModel.sendDiary
             .drive(self.rx.setupContents)
             .disposed(by: disposeBag)
         
@@ -103,7 +100,7 @@ final class CreateViewController: UIViewController {
 // MARK: - setup
 private extension CreateViewController {
     func attribute() {
-        navigationItem.title = "Write Diary"
+        navigationItem.title = CreateViewControllerContents.navigationItemTitle
         navigationController?.navigationBar.tintColor = .label
         navigationItem.rightBarButtonItem = saveButton
     }
@@ -111,7 +108,7 @@ private extension CreateViewController {
     func layout() {
         view.addSubview(stackView)
         
-        stackViewBottomConstraint = stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -offset)
+        stackViewBottomConstraint =  stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -offset)
         
         
         NSLayoutConstraint.activate([
@@ -175,7 +172,7 @@ private extension CreateViewController {
 // MARK: - UITextViewDelegate
 extension CreateViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == contentPlaceHolder {
+        if textView.text == CreateViewControllerContents.contentsTextViewPlaceHolder {
             textView.text = ""
             textView.textColor = .label
         }
@@ -183,7 +180,7 @@ extension CreateViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = contentPlaceHolder
+            textView.text = CreateViewControllerContents.contentsTextViewPlaceHolder
             textView.textColor = .secondaryLabel
         }
     }
@@ -198,8 +195,9 @@ extension CreateViewController: UITextFieldDelegate {
 }
 
 extension Reactive where Base: CreateViewController {
-    var setupContents: Binder<Diary> {
+    var setupContents: Binder<Diary?> {
         return Binder(base) { base, diary in
+            guard let diary = diary else { return }
             base.titleTextField.text = diary.title
             base.contentsTextView.text = diary.contents
             base.contentsTextView.textColor = .label

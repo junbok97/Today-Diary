@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     private lazy var editBarButtonItem: UIBarButtonItem = {
-        let barbutton = UIBarButtonItem(title: "edit", style: .plain, target: self, action: nil)
+        let barbutton = UIBarButtonItem(title: DetailViewControllerContents.rightBarButtonItemTitle, style: .plain, target: self, action: nil)
         barbutton.tintColor = .label
         return barbutton
     }()
@@ -67,7 +67,7 @@ final class DetailViewController: UIViewController {
             .bind(to: viewModel.editButtonTapped)
             .disposed(by: disposeBag)    
         
-        viewModel.getDiary
+        viewModel.sendDiary
             .drive(self.rx.diary)
             .disposed(by: disposeBag)
         
@@ -82,7 +82,7 @@ final class DetailViewController: UIViewController {
 // MARK: - setup
 private extension DetailViewController {
     func attribute() {
-        navigationItem.title = "Detail Diary"
+        navigationItem.title = DetailViewControllerContents.navigationItemTitle
         navigationController?.navigationBar.tintColor = .label
         navigationItem.rightBarButtonItem = editBarButtonItem
     }

@@ -36,7 +36,7 @@ final class MainViewController: UIViewController {
         calendar.placeholderType = .none
         // 달력에 표시되는 헤더
         
-        calendar.appearance.headerDateFormat = "YYYY년 M월"
+        calendar.appearance.headerDateFormat = MainViewControllerContents.calendarHeaderDateFormat
         // 전달 or 다음달의 투명도
         calendar.appearance.headerMinimumDissolvedAlpha = 0
         calendar.appearance.headerTitleColor = .label
@@ -75,16 +75,13 @@ final class MainViewController: UIViewController {
         calendar.reloadData()
     }
     
-    // TODO: 완성중 ...
     func bind(_ viewModel: MainViewModel) {
         addDiaryButton.rx.tap
             .bind(to: viewModel.addDiaryButtonTapped)
             .disposed(by: disposeBag)
         
-        
         diaryListBackgroundView
             .bind(viewModel.diaryListBackgroundViewModel)
-        
         
         selectedDateSubject
             .startWith(Date())
@@ -98,7 +95,6 @@ final class MainViewController: UIViewController {
         diaryList.rx.itemDeleted
             .bind(to: viewModel.deleteRow)
             .disposed(by: disposeBag)
-            
         
         viewModel.diaryListCellData
             .drive(diaryList.rx.items) { tableView, row, item in
@@ -107,7 +103,6 @@ final class MainViewController: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
-        
         
         viewModel.showDetailViewController
             .emit(to: self.rx.showDetailViewController)
@@ -118,13 +113,12 @@ final class MainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    
 }
 
 // MARK: - setup
 private extension MainViewController {
     func attribute() {
-        navigationItem.title = "Diary"
+        navigationItem.title = MainViewControllerContents.navigationItemTitle
         navigationItem.rightBarButtonItem = addDiaryButton
     }
     
@@ -144,7 +138,6 @@ private extension MainViewController {
         ])
     }
     
-    
 }
 
 
@@ -163,55 +156,6 @@ extension MainViewController: FSCalendarDelegate {
         }
     }
 }
-
-
-//
-//// MARK: - UITableViewDelegate
-//extension MainViewController: UITableViewDelegate {
-//
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        let delete = UIContextualAction(style: .normal, title: "") { [weak self] (_, _, success: @escaping (Bool) -> Void) in
-//            // 원하는 액션 추가
-//            guard let self = self else { return }
-//            self.diaryManager.deleteDiary(self.todayDiarys[indexPath.row])
-//            self.updateTodayDiarys()
-//            self.calendar.reloadData()
-//            success(true)
-//        }
-//
-//        // 각 ContextualAction 대한 설정
-//        delete.backgroundColor = .systemRed
-//        delete.image = UIImage(systemName: "trash.fill")
-//
-//        // UISwipeActionsConfiguration에 action을 추가하여 리턴
-//        return UISwipeActionsConfiguration(actions: [delete])
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        coordinator?.showDetailViewController(diary: todayDiarys[indexPath.row])
-//    }
-//
-//}
-//
-//
-//// MARK: - UITableViewDataSource
-//extension MainViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if todayDiarys.count == 0 {
-//            diaryListBackgroundView.statusLabel.isHidden = false
-//        } else {
-//            diaryListBackgroundView.statusLabel.isHidden = true
-//        }
-//        return todayDiarys.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: indexPath)
-//        cell.setData(diary: todayDiarys[indexPath.row])
-//        return cell
-//    }
-//}
 
 // MARK: - Extension Reactive
 extension Reactive where Base: MainViewController {

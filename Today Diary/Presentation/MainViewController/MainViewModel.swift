@@ -24,11 +24,24 @@ struct MainViewModel {
     let deleteRow = PublishRelay<IndexPath>()
     let selectDate = PublishRelay<Date>()
     let selectRow = PublishRelay<IndexPath>()
-    let diaryData = PublishSubject<[Diary]>()
+   
     
+    let reloadDiaryData = PublishRelay<Void>()
+    
+    
+    let diaryData = ReplaySubject<[Diary]>.create(bufferSize: 1)
     
     
     init() {
+        
+        
+        reloadDiaryData
+            .withLatestFrom(selectDate) { _, date in
+                DiaryManager.shared.queryDiary(date)
+            }
+            .bind(to: diaryData)
+            .disposed(by: disposeBag)
+        
         selectDate
             .map { DiaryManager.shared.queryDiary($0) }
             .bind(to: diaryData)
@@ -41,23 +54,23 @@ struct MainViewModel {
             .bind(to: diaryData)
             .disposed(by: disposeBag)
         
-        
         diaryData
             .map { !$0.isEmpty } // 비어있으면 isHidden = false 비어있지 않으면 isHidden = true
             .bind(to: diaryListBackgroundViewModel.shouldHideStatusLabel)
             .disposed(by: disposeBag)
+
+        
+        
         
         diaryListCellData = diaryData
             .asDriver(onErrorDriveWith: .empty())
-
-        diaryListCellData
-            .drive()
-            .disposed(by: disposeBag)
-
-        
         
         // MARK: - DetailViewModel
         let detailViewModel = DetailViewModel()
+        
+        detailViewModel.receiveDiary
+            
+        
         showDetailViewController = selectRow
             .map { _ -> DetailViewModel in
                 return detailViewModel
@@ -68,7 +81,7 @@ struct MainViewModel {
             .withLatestFrom(diaryData) { indexPath, diaryList  in
                 diaryList[indexPath.row]
             }
-            .bind(to: detailViewModel.deliveryDiary)
+            .bind(to: detailViewModel.receiveDiary)
             .disposed(by: disposeBag)
         
    
@@ -82,12 +95,8 @@ struct MainViewModel {
             .disposed(by: disposeBag)
         
         addDiaryButtonTapped
-            .withLatestFrom(selectDate) { _, selectDate -> Diary in
-                let diary = Diary(title: "", contents: "", date: selectDate)
-                DiaryManager.shared.addDiray(diary)
-                return diary
-            }
-            .bind(to: createViewModel.deliveryDiary)
+            .map { nil }
+            .bind(to: createViewModel.receiveDiary)
             .disposed(by: disposeBag)
         
         showCreateViewController = addDiaryButtonTapped

@@ -13,37 +13,38 @@ struct CreateViewModel {
     private let disposeBag = DisposeBag()
     
     // ViewModel -> View
-    let getDiary: Driver<Diary>
+    let sendDiary: Driver<Diary?>
     let popViewController: Signal<Void>
     
     // View -> ViewModel
     let saveButtonTapped = PublishRelay<(title: String, contents: String)>()
     
     // 외부에서 전달받을 값
-    let deliveryDiary = PublishSubject<Diary>()
+    let receiveDiary = ReplaySubject<Diary?>.create(bufferSize: 1)
     
     // ViewController -> ParentsViewController
     let diaryEditDone = PublishRelay<Diary>()
     
     init() {
-        getDiary = deliveryDiary
+        sendDiary = receiveDiary
             .asDriver(onErrorDriveWith: .empty())
             
-        getDiary
-            .drive()
-            .disposed(by: disposeBag)
-//
         // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
         // Diary를 Save하면
         // DetailViewModel은 수정한 Diary를
         // MainViewModel은 queryDiary
         saveButtonTapped
-            .withLatestFrom(deliveryDiary, resultSelector: { saveData, diary -> Diary in
-                var target = diary
-                target.title = saveData.title
-                target.contents = saveData.contents
-                DiaryManager.shared.editDiary(target)
-                return target
+            .withLatestFrom(receiveDiary, resultSelector: { saveData, diary -> Diary in
+                if var target = diary {
+                    target.title = saveData.title
+                    target.contents = saveData.contents
+                    DiaryManager.shared.editDiary(target)
+                    return target
+                } else {
+                    let target = Diary(title: saveData.title, contents: saveData.contents, date: Date())
+                    DiaryManager.shared.addDiray(target)
+                    return target
+                }
             })
             .bind(to: diaryEditDone)
             .disposed(by: disposeBag)

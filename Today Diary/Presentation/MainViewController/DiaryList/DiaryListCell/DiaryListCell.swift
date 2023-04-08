@@ -20,6 +20,7 @@ final class DiaryListCell: UITableViewCell, UITableViewCellRegister {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         attribute()
         layout()
     }

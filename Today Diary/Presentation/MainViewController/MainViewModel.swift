@@ -19,13 +19,14 @@ struct MainViewModel {
     let showDetailViewController: Signal<DetailViewModel>
     let showCreateViewController: Signal<CreateViewModel>
     
+    
     // View -> ViewModel
     let addDiaryButtonTapped = PublishRelay<Void>()
     let deleteRow = PublishRelay<IndexPath>()
     let selectDate = PublishRelay<Date>()
     let selectRow = PublishRelay<IndexPath>()
-   
     
+    let reloadCalendar = PublishSubject<Void>()
     let reloadDiaryData = PublishRelay<Void>()
     
     
@@ -52,7 +53,12 @@ struct MainViewModel {
             .withLatestFrom(diaryData) { indexPath, diaryList  in
                 DiaryManager.shared.deleteDiary(diaryList[indexPath.row])
             }
-            .bind(to: diaryData)
+            .bind(to: reloadDiaryData)
+            .disposed(by: disposeBag)
+        
+        deleteRow
+            .map { _ in Void() }
+            .bind(to: reloadCalendar)
             .disposed(by: disposeBag)
         
         diaryData
@@ -66,7 +72,6 @@ struct MainViewModel {
         detailViewModel.diaryDidChange
             .bind(to: reloadDiaryData)
             .disposed(by: disposeBag)
-            
         
         showDetailViewController = selectRow
             .map { _ -> DetailViewModel in
@@ -86,6 +91,10 @@ struct MainViewModel {
         let createViewModel = CreateViewModel()
         createViewModel.diaryEditDone
             .bind(to: reloadDiaryData)
+            .disposed(by: disposeBag)
+        
+        createViewModel.diaryEditDone
+            .bind(to: reloadCalendar)
             .disposed(by: disposeBag)
         
         addDiaryButtonTapped

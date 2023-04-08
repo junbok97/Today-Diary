@@ -27,9 +27,10 @@ final class MainViewController: UIViewController {
     
     let diaryListBackgroundView = DiaryListBackgroundView()
     
-    private lazy var calendar: FSCalendar = {
+    lazy var calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
         calendar.delegate = self
+        calendar.dataSource = self
         // 전월이나 다음월의 일수를 표현할 것인지
         // ex) 30 31 1 2 3 or 1 2 3
         calendar.placeholderType = .none
@@ -41,8 +42,8 @@ final class MainViewController: UIViewController {
         calendar.appearance.headerTitleColor = .label
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.selectionColor = .label
-//        calendar.appearance.eventDefaultColor = .red
-//        calendar.appearance.eventSelectionColor = .red
+        calendar.appearance.eventDefaultColor = .red
+        calendar.appearance.eventSelectionColor = .red
         calendar.appearance.titleDefaultColor = .label
         calendar.appearance.titleSelectionColor = .systemBackground
         calendar.tintColor = .label
@@ -93,6 +94,11 @@ final class MainViewController: UIViewController {
             .bind(to: viewModel.deleteRow)
             .disposed(by: disposeBag)
         
+        viewModel.reloadCalendar
+            .bind(to: self.rx.reloadCalendar)
+            .disposed(by: disposeBag)
+        
+        
         viewModel.diaryListCellData
             .drive(diaryList.rx.items) { tableView, row, item in
                 let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
@@ -139,19 +145,25 @@ private extension MainViewController {
 
 
 // MARK: - FSCalendarDelegate
-extension MainViewController: FSCalendarDelegate {
+extension MainViewController: FSCalendarDelegate, FSCalendarDataSource {
     // 날짜 선택 시 콜백 메소드
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDateSubject.onNext(date)
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return 2
+        return DiaryManager.shared.queryDiary(date).isEmpty ? 0 : 1
     }
 }
 
 // MARK: - Extension Reactive
 extension Reactive where Base: MainViewController {
+    var reloadCalendar: Binder<Void> {
+        return Binder(base) { base, _ in
+            base.calendar.reloadData()
+        }
+    }
+    
     var showDetailViewController: Binder<DetailViewModel> {
         return Binder(base) { base, viewModel in
             base.coordinator?.showDetailViewController(viewModel)

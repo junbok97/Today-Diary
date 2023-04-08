@@ -23,7 +23,7 @@ struct CreateViewModel {
     let receiveDiary = ReplaySubject<Diary?>.create(bufferSize: 1)
     
     // ViewController -> ParentsViewController
-    let diaryEditDone = PublishRelay<Diary>()
+    let diaryEditDone = PublishRelay<Void>()
     
     init() {
         sendDiary = receiveDiary
@@ -34,16 +34,14 @@ struct CreateViewModel {
         // DetailViewModel은 수정한 Diary를
         // MainViewModel은 queryDiary
         saveButtonTapped
-            .withLatestFrom(receiveDiary, resultSelector: { saveData, diary -> Diary in
+            .withLatestFrom(receiveDiary, resultSelector: { saveData, diary in
                 if var target = diary {
                     target.title = saveData.title
                     target.contents = saveData.contents
                     DiaryManager.shared.editDiary(target)
-                    return target
                 } else {
                     let target = Diary(title: saveData.title, contents: saveData.contents, date: Date())
                     DiaryManager.shared.addDiray(target)
-                    return target
                 }
             })
             .bind(to: diaryEditDone)

@@ -17,7 +17,6 @@ final class MainViewController: UIViewController {
     var coordinator: MainCoordinator?
     
     private let disposeBag = DisposeBag()
-    private let diaryManager = DiaryManager.shared
     private let selectedDateSubject = PublishSubject<Date>()
     
     private lazy var addDiaryButton: UIBarButtonItem = {
@@ -42,8 +41,8 @@ final class MainViewController: UIViewController {
         calendar.appearance.headerTitleColor = .label
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.selectionColor = .label
-        calendar.appearance.eventDefaultColor = .red
-        calendar.appearance.eventSelectionColor = .red
+//        calendar.appearance.eventDefaultColor = .red
+//        calendar.appearance.eventSelectionColor = .red
         calendar.appearance.titleDefaultColor = .label
         calendar.appearance.titleSelectionColor = .systemBackground
         calendar.tintColor = .label
@@ -54,8 +53,6 @@ final class MainViewController: UIViewController {
     private lazy var diaryList: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
-        //        tableView.delegate = self
-        //        tableView.dataSource = self
         tableView.backgroundColor = .secondarySystemBackground
         tableView.backgroundView = diaryListBackgroundView
         DiaryListCell.register(target: tableView)
@@ -149,11 +146,7 @@ extension MainViewController: FSCalendarDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        if diaryManager.queryDiary(date).isEmpty {
-            return 0
-        } else {
-            return 1
-        }
+        return 2
     }
 }
 

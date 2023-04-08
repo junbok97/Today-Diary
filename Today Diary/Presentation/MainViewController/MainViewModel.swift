@@ -33,8 +33,6 @@ struct MainViewModel {
     
     
     init() {
-        
-        
         reloadDiaryData
             .withLatestFrom(selectDate) { _, date in
                 DiaryManager.shared.queryDiary(date)
@@ -42,9 +40,12 @@ struct MainViewModel {
             .bind(to: diaryData)
             .disposed(by: disposeBag)
         
+        diaryListCellData = diaryData
+            .asDriver(onErrorDriveWith: .empty())
+        
         selectDate
-            .map { DiaryManager.shared.queryDiary($0) }
-            .bind(to: diaryData)
+            .map { _ in Void() }
+            .bind(to: reloadDiaryData)
             .disposed(by: disposeBag)
         
         deleteRow
@@ -60,15 +61,11 @@ struct MainViewModel {
             .disposed(by: disposeBag)
 
         
-        
-        
-        diaryListCellData = diaryData
-            .asDriver(onErrorDriveWith: .empty())
-        
         // MARK: - DetailViewModel
         let detailViewModel = DetailViewModel()
-        
-        detailViewModel.receiveDiary
+        detailViewModel.diaryDidChange
+            .bind(to: reloadDiaryData)
+            .disposed(by: disposeBag)
             
         
         showDetailViewController = selectRow
@@ -88,10 +85,7 @@ struct MainViewModel {
         // MARK: - CreateViewModel
         let createViewModel = CreateViewModel()
         createViewModel.diaryEditDone
-            .withLatestFrom(selectDate) { _, selectDate in
-                DiaryManager.shared.queryDiary(selectDate)
-            }
-            .bind(to: diaryData)
+            .bind(to: reloadDiaryData)
             .disposed(by: disposeBag)
         
         addDiaryButtonTapped

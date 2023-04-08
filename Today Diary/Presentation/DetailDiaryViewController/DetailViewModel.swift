@@ -26,15 +26,23 @@ struct DetailViewModel {
     let receiveDiary = ReplaySubject<Diary>.create(bufferSize: 1)
     
     // ViewController -> ParentsViewController
-    let diaryDidChange = PublishSubject<Void>()
+    let diaryDidChange = PublishRelay<Void>()
     
     init() {
         sendDiary = receiveDiary
             .asDriver(onErrorDriveWith: .empty())
         
         let createViewModel = CreateViewModel()
+        
         createViewModel.diaryEditDone
+            .withLatestFrom(receiveDiary) { _, diary in
+                DiaryManager.shared.getDiary(diary.id)!
+            }
             .bind(to: receiveDiary)
+            .disposed(by: disposeBag)
+        
+        createViewModel.diaryEditDone
+            .bind(to: diaryDidChange)
             .disposed(by: disposeBag)
 
         editButtonTapped

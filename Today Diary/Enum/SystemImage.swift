@@ -14,4 +14,3 @@ enum SystemImage: String {
     var image: UIImage? { return UIImage(systemName: self.rawValue) }
 
 }
-

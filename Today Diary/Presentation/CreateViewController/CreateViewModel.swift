@@ -31,7 +31,7 @@ struct CreateViewModel {
             .map { $0.diary }
             .asDriver(onErrorDriveWith: .empty())
             
-        // TODO: Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
+        // Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
         // Diary를 Save하면
         // DetailViewModel은 수정한 Diary를
         // MainViewModel은 queryDiary

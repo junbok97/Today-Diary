@@ -9,18 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol DetailCoordinator: Coordinator {
-    var parentCoordinator: MainCoordinator? { get }
+protocol DetailCoordinatorProtocol: CoordinatorProtocol {
+    var parentCoordinator: MainCoordinatorProtocol? { get }
     func start(_ viewModel: DetailViewModel)
     func showCreateViewController(_ viewModel: CreateViewModel)
     func finish()
 }
 
-final class DefaultDetailCoordinator: DetailCoordinator {
+final class DetailCoordinator: DetailCoordinatorProtocol {
     
-    weak var parentCoordinator: MainCoordinator?
+    weak var parentCoordinator: MainCoordinatorProtocol?
     
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     
     var navi: UINavigationController
     

@@ -16,12 +16,16 @@ final class CreateViewController: UIViewController {
     private let textFieldHeight: CGFloat = 65.0
     private let disposeBag = DisposeBag()
 
-    var coordinator: CreateCoorinator?
+    var coordinator: CreateCoorinatorProtocol?
     private var stackViewBottomConstraint: NSLayoutConstraint!
     
-    
     private lazy var saveButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(title: CreateViewControllerContents.rightBarButtonItemTitle, style: .plain, target: self, action: nil)
+        let barButtonItem = UIBarButtonItem(
+            title: CreateViewControllerContents.rightBarButtonItemTitle,
+            style: .plain,
+            target: self,
+            action: nil
+        )
         barButtonItem.tintColor = .label
         return barButtonItem
     }()
@@ -30,13 +34,21 @@ final class CreateViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = CreateViewControllerContents.titleTextFieldPlaceHolder
         textField.font = .titleFont()
-        textField.layer.borderWidth = borderWidth
-        textField.layer.borderColor = UIColor.label.cgColor
         textField.addPadding()
         textField.returnKeyType = .done
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    lazy var datePicker: UIDatePicker = {
+       let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.contentHorizontalAlignment = .leading
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        return datePicker
     }()
     
     lazy var contentsTextView: UITextView = {
@@ -45,14 +57,12 @@ final class CreateViewController: UIViewController {
         textView.textColor = .secondaryLabel
         textView.text = CreateViewControllerContents.contentsTextViewPlaceHolder
         textView.delegate = self
-        textView.layer.borderWidth = borderWidth
-        textView.layer.borderColor = UIColor.label.cgColor
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTextField, contentsTextView])
+        let stackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, contentsTextView])
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
@@ -61,8 +71,8 @@ final class CreateViewController: UIViewController {
         return stackView
     }()
     
-
     
+
     override func viewDidLoad() {
         attribute()
         layout()
@@ -81,7 +91,7 @@ final class CreateViewController: UIViewController {
         saveButton.rx.tap
             .map { [weak self] in
                 guard let self = self else { return ("", "") }
-                return (self.titleTextField.text ?? "" , self.contentsTextView.text)
+                return (self.titleTextField.text ?? "", self.contentsTextView.text)
             }
             .bind(to: viewModel.saveButtonTapped)
             .disposed(by: disposeBag)        
@@ -135,23 +145,40 @@ private extension CreateViewController {
 // MARK: - 키보드 설정
 private extension CreateViewController {
     // 노티피케이션을 추가하는 메서드
-    func addKeyboardNotifications(){
+    func addKeyboardNotifications() {
         // 키보드가 나타날 때 앱에게 알리는 메서드 추가
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         // 키보드가 사라질 때 앱에게 알리는 메서드 추가
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
 
     // 노티피케이션을 제거하는 메서드
-    func removeKeyboardNotifications(){
+    func removeKeyboardNotifications() {
         // 키보드가 나타날 때 앱에게 알리는 메서드 제거
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         // 키보드가 사라질 때 앱에게 알리는 메서드 제거
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     // 키보드가 나타났다는 알림을 받으면 실행할 메서드
-    @objc func keyboardWillShow(_ noti: NSNotification){
+    @objc func keyboardWillShow(_ noti: NSNotification) {
         // 키보드의 높이만큼 화면을 올려준다.
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -163,7 +190,7 @@ private extension CreateViewController {
     }
 
     // 키보드가 사라졌다는 알림을 받으면 실행할 메서드
-    @objc func keyboardWillHide(_ noti: NSNotification){
+    @objc func keyboardWillHide(_ noti: NSNotification) {
         // 키보드의 높이만큼 화면을 내려준다.
         stackViewBottomConstraint.constant = -offset
     }
@@ -199,6 +226,7 @@ extension Reactive where Base: CreateViewController {
         return Binder(base) { base, diary in
             guard let diary = diary else { return }
             base.titleTextField.text = diary.title
+            base.datePicker.date = diary.date
             base.contentsTextView.text = diary.contents
             base.contentsTextView.textColor = .label
         }

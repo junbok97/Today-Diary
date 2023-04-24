@@ -48,4 +48,3 @@ extension UITableViewCellRegister where Self: UITableViewCell {
         return cell
     }
 }
-

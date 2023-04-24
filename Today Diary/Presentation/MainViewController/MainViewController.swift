@@ -10,11 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// TODO: CalendarDelegate 수정예정
 
 final class MainViewController: UIViewController {
     
-    var coordinator: MainCoordinator?
+    var coordinator: MainCoordinatorProtocol?
     
     private let disposeBag = DisposeBag()
     private let selectedDateSubject = PublishSubject<Date>()
@@ -100,7 +99,7 @@ final class MainViewController: UIViewController {
         
         
         viewModel.diaryListCellData
-            .drive(diaryList.rx.items) { tableView, row, item in
+            .drive(diaryList.rx.items) { tableView, _, item in
                 let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
                 cell.setData(diary: item)
                 return cell

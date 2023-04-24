@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol CreateCoorinator: Coordinator {
-    var parentCoordinator: MainCoordinator? { get }
+protocol CreateCoorinatorProtocol: CoordinatorProtocol {
+    var parentCoordinator: MainCoordinatorProtocol? { get }
     func start(_ viewModel: CreateViewModel)
     func finish()
 }
 
-final class DefaultCreateCoorinator: CreateCoorinator {
+final class CreateCoorinator: CreateCoorinatorProtocol {
     
-    weak var parentCoordinator: MainCoordinator?
+    weak var parentCoordinator: MainCoordinatorProtocol?
     var navi: UINavigationController
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     
     func start() {}
 

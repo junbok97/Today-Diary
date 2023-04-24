@@ -19,7 +19,7 @@ final class DiaryManager {
     }
     
     
-    func queryDiary(_ date: Date) ->  [Diary] {
+    func queryDiary(_ date: Date) -> [Diary] {
         let targetDate = DateFormatter().toString(date: date)
         return diaryList.filter { $0.date == targetDate }
     }

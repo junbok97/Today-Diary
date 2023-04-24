@@ -30,7 +30,6 @@ final class DiaryListCell: UITableViewCell, UITableViewCellRegister {
     }
     
     func setData(diary: Diary) {
-        // TODO: label.text 설정
         titleLabel.text = diary.title
     }
 }

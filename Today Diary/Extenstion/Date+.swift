@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date{
+extension Date {
     
     static  let calendar = Calendar.current
     static  let dateFormatter = DateFormatter()
@@ -25,10 +25,12 @@ extension Date{
         components.day = day
         
         guard let date = Calendar.current.date(from: components) else {
-            return nil  // 날짜 생성할 수 없다면 nil리턴
+            // 날짜 생성할 수 없다면 nil리턴
+            return nil
         }
         
-        self = date      //구조체이기 때문에, self에 새로운 인스턴스를 할당하는 방식으로 초기화가능
+        // 구조체이기 때문에, self에 새로운 인스턴스를 할당하는 방식으로 초기화가능
+        self = date
     }
     
     func setCurrentTime() -> Date {

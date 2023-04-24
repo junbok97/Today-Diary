@@ -10,7 +10,7 @@ import RxSwift
 
 final class DetailViewController: UIViewController {
     
-    var coordinator: DetailCoordinator?
+    var coordinator: DetailCoordinatorProtocol?
     let disposeBag = DisposeBag()
     
     private lazy var editBarButtonItem: UIBarButtonItem = {

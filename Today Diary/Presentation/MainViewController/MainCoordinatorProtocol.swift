@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol MainCoordinator: Coordinator {
+protocol MainCoordinatorProtocol: CoordinatorProtocol {
     func showCreateViewController(_ viewModel: CreateViewModel)
     func showDetailViewController(_ viewModel: DetailViewModel)
-    func finishChild(_ child: Coordinator)
+    func finishChild(_ child: CoordinatorProtocol)
 }
 
-final class DefaultMainCoordinator: MainCoordinator {
+final class MainCoordinator: MainCoordinatorProtocol {
     let mainViewModel = MainViewModel()
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     
     var navi: UINavigationController
     
@@ -31,20 +31,20 @@ final class DefaultMainCoordinator: MainCoordinator {
     }
     
     func showCreateViewController(_ viewModel: CreateViewModel) {
-        let child = DefaultCreateCoorinator(navi: self.navi)
+        let child = CreateCoorinator(navi: self.navi)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start(viewModel)
     }
         
     func showDetailViewController(_ viewModel: DetailViewModel) {
-        let child = DefaultDetailCoordinator(navi: self.navi)
+        let child = DetailCoordinator(navi: self.navi)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start(viewModel)
     }
     
-    func finishChild(_ child: Coordinator) {
+    func finishChild(_ child: CoordinatorProtocol) {
         childCoordinators = childCoordinators.filter {
             $0 !== child
         }

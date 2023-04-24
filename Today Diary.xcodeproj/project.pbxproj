@@ -10,6 +10,7 @@
 		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
 		CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0780C229DBDF40009FAADB /* DetailViewModel.swift */; };
 		CB0B283029E1440800B73921 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B282F29E1440800B73921 /* Contents.swift */; };
+		CB1CC52429F677C300358823 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CC52329F677C300358823 /* Test.storyboard */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
 		CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */; };
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
@@ -19,10 +20,11 @@
 		CB6C3DCB29D9393500E9BB6D /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C3DCA29D9393500E9BB6D /* DateFormatter+.swift */; };
 		CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E429D94F0E002E435D /* DetailViewController.swift */; };
 		CB7A34E729D9506C002E435D /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E629D9506C002E435D /* UIFont+.swift */; };
-		CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E829D95CE8002E435D /* Coordinator.swift */; };
-		CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */; };
-		CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */; };
-		CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */; };
+		CB7A34E929D95CE8002E435D /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34E829D95CE8002E435D /* CoordinatorProtocol.swift */; };
+		CB7A34EB29D95D02002E435D /* DetailCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EA29D95D02002E435D /* DetailCoordinatorProtocol.swift */; };
+		CB7A34ED29D95D0A002E435D /* CreateCoorinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EC29D95D0A002E435D /* CreateCoorinatorProtocol.swift */; };
+		CB7A34EF29D95DB4002E435D /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A34EE29D95DB4002E435D /* MainCoordinatorProtocol.swift */; };
+		CB80B1CB29E535D900298F3C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CB80B1CA29E535D900298F3C /* .swiftlint.yml */; };
 		CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095229D7F07400DB4C30 /* SystemImage.swift */; };
 		CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */; };
 		CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBB095A29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift */; };
@@ -43,6 +45,7 @@
 		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0780C229DBDF40009FAADB /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CB0B282F29E1440800B73921 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
+		CB1CC52329F677C300358823 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,10 +57,11 @@
 		CB6C3DCA29D9393500E9BB6D /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		CB7A34E429D94F0E002E435D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CB7A34E629D9506C002E435D /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
-		CB7A34E829D95CE8002E435D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
-		CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoorinator.swift; sourceTree = "<group>"; };
-		CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		CB7A34E829D95CE8002E435D /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		CB7A34EA29D95D02002E435D /* DetailCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		CB7A34EC29D95D0A002E435D /* CreateCoorinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoorinatorProtocol.swift; sourceTree = "<group>"; };
+		CB7A34EE29D95DB4002E435D /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		CB80B1CA29E535D900298F3C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		CBBB095229D7F07400DB4C30 /* SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImage.swift; sourceTree = "<group>"; };
 		CBBB095829D7F1A400DB4C30 /* DiaryListBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundView.swift; sourceTree = "<group>"; };
 		CBBB095A29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListBackgroundViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 		CB24302B29CEEE6E0046AD0C = {
 			isa = PBXGroup;
 			children = (
+				CB80B1CA29E535D900298F3C /* .swiftlint.yml */,
 				CB24303629CEEE6E0046AD0C /* Today Diary */,
 				CB24303529CEEE6E0046AD0C /* Products */,
 				DEC0A61058BF32A4BAFE8D0B /* Pods */,
@@ -132,6 +137,7 @@
 				CB03B28029D58E27008771BD /* Presentation */,
 				CB24304029CEEE6E0046AD0C /* Assets.xcassets */,
 				CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */,
+				CB1CC52329F677C300358823 /* Test.storyboard */,
 				CB24304529CEEE6E0046AD0C /* Info.plist */,
 			);
 			path = "Today Diary";
@@ -140,7 +146,7 @@
 		CB7A34E329D94C34002E435D /* DetailDiaryViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CB7A34EA29D95D02002E435D /* DetailCoordinator.swift */,
+				CB7A34EA29D95D02002E435D /* DetailCoordinatorProtocol.swift */,
 				CB7A34E429D94F0E002E435D /* DetailViewController.swift */,
 				CB0780C229DBDF40009FAADB /* DetailViewModel.swift */,
 			);
@@ -197,7 +203,7 @@
 		CBBB095729D7F19500DB4C30 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CB7A34EE29D95DB4002E435D /* MainCoordinator.swift */,
+				CB7A34EE29D95DB4002E435D /* MainCoordinatorProtocol.swift */,
 				CB24303B29CEEE6E0046AD0C /* MainViewController.swift */,
 				CBBB096529D7F92600DB4C30 /* MainViewModel.swift */,
 				CBBB095629D7F18D00DB4C30 /* DiaryList */,
@@ -209,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				CBBB095F29D7F54C00DB4C30 /* UITableViewCellRegister.swift */,
-				CB7A34E829D95CE8002E435D /* Coordinator.swift */,
+				CB7A34E829D95CE8002E435D /* CoordinatorProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -226,7 +232,7 @@
 		CBBB098729D819EE00DB4C30 /* CreateViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CB7A34EC29D95D0A002E435D /* CreateCoorinator.swift */,
+				CB7A34EC29D95D0A002E435D /* CreateCoorinatorProtocol.swift */,
 				CBBB098829D81A0200DB4C30 /* CreateViewController.swift */,
 				CB60E47029DD74D100A7915F /* CreateViewModel.swift */,
 			);
@@ -254,6 +260,7 @@
 				CB24303129CEEE6E0046AD0C /* Frameworks */,
 				CB24303229CEEE6E0046AD0C /* Resources */,
 				9958131B38EA8813C21F7AB5 /* [CP] Embed Pods Frameworks */,
+				CB80B1CC29E535EB00298F3C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -302,7 +309,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB80B1CB29E535D900298F3C /* .swiftlint.yml in Resources */,
 				CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */,
+				CB1CC52429F677C300358823 /* Test.storyboard in Resources */,
 				CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +335,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Today Diary/Pods-Today Diary-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CB80B1CC29E535EB00298F3C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		EAB50D0839F40A98625F32A6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -356,16 +382,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB7A34EB29D95D02002E435D /* DetailCoordinator.swift in Sources */,
+				CB7A34EB29D95D02002E435D /* DetailCoordinatorProtocol.swift in Sources */,
 				CBBB098929D81A0200DB4C30 /* CreateViewController.swift in Sources */,
 				CB60E47129DD74D100A7915F /* CreateViewModel.swift in Sources */,
 				CBBB099329D8388B00DB4C30 /* DiaryManager.swift in Sources */,
-				CB7A34ED29D95D0A002E435D /* CreateCoorinator.swift in Sources */,
+				CB7A34ED29D95D0A002E435D /* CreateCoorinatorProtocol.swift in Sources */,
 				CB7A34E729D9506C002E435D /* UIFont+.swift in Sources */,
 				CBBB095329D7F07400DB4C30 /* SystemImage.swift in Sources */,
 				CBBB098D29D8309200DB4C30 /* UserDefaults+.swift in Sources */,
 				CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */,
-				CB7A34EF29D95DB4002E435D /* MainCoordinator.swift in Sources */,
+				CB7A34EF29D95DB4002E435D /* MainCoordinatorProtocol.swift in Sources */,
 				CB7A34E529D94F0E002E435D /* DetailViewController.swift in Sources */,
 				CB0B283029E1440800B73921 /* Contents.swift in Sources */,
 				CBBB098B29D823D900DB4C30 /* UITextField+.swift in Sources */,
@@ -374,7 +400,7 @@
 				CBBB095B29D7F33900DB4C30 /* DiaryListBackgroundViewModel.swift in Sources */,
 				CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */,
 				CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */,
-				CB7A34E929D95CE8002E435D /* Coordinator.swift in Sources */,
+				CB7A34E929D95CE8002E435D /* CoordinatorProtocol.swift in Sources */,
 				CBBB096629D7F92600DB4C30 /* MainViewModel.swift in Sources */,
 				CBBB095929D7F1A400DB4C30 /* DiaryListBackgroundView.swift in Sources */,
 				CBBB096029D7F54C00DB4C30 /* UITableViewCellRegister.swift in Sources */,
@@ -532,7 +558,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.junbok97.Today-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -564,7 +590,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.junbok97.Today-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

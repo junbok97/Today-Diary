@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="feA-GZ-3WM">
-                                <rect key="frame" x="10" y="69" width="373" height="34"/>
+                                <rect key="frame" x="10" y="69" width="320" height="34.333333333333343"/>
                                 <locale key="locale" localeIdentifier="ko_KR"/>
                             </datePicker>
                         </subviews>

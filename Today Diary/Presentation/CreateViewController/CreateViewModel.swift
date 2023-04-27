@@ -9,50 +9,42 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct CreateViewModel {
+
+
+final class CreateViewModel {
     private let disposeBag = DisposeBag()
     
     // ViewModel -> View
-    let sendDiary: Driver<Diary?>
-    let popViewController: Signal<Void>
+    let diaryData: Driver<Diary>
+    let popViewController = PublishRelay<Void>()
     
     // View -> ViewModel
-    let saveButtonTapped = PublishRelay<(title: String, contents: String)>()
+    let didTappedRightBarButtonItem = PublishRelay<Void>()
+    let titleText = PublishRelay<String?>()
+    let contentsText = PublishRelay<String?>()
     
     // 외부에서 전달받을 값
-    let receiveData = ReplaySubject<(date: Date?, diary: Diary?)>.create(bufferSize: 1)
-    
-    
-    // ViewController -> ParentsViewController
-    let diaryEditDone = PublishRelay<Void>()
+    let receiveDiary = ReplayRelay<Diary>.create(bufferSize: 1)
     
     init() {
-        sendDiary = receiveData
-            .map { $0.diary }
+        diaryData = receiveDiary
             .asDriver(onErrorDriveWith: .empty())
-            
-        // Diary를 만들면 부모한테 알려줘서 queryDiary 하여 cellData 갱신
-        // Diary를 Save하면
-        // DetailViewModel은 수정한 Diary를
-        // MainViewModel은 queryDiary
-        saveButtonTapped
-            .withLatestFrom(receiveData, resultSelector: { saveData, data in
-                if var target = data.diary {
-                    target.title = saveData.title
-                    target.contents = saveData.contents
-                    DiaryManager.shared.editDiary(target)
-                } else {
-                    let target = Diary(title: saveData.title, contents: saveData.contents, date: data.date ?? Date())
-                    DiaryManager.shared.addDiray(target)
-                }
-            })
-            .bind(to: diaryEditDone)
+        
+        let saveDiaryData = Observable
+            .combineLatest(receiveDiary, titleText, contentsText) { (diary, title, contents) -> Diary in
+                var diary = diary
+                if let title = title, title != "" { diary.title = title }
+                if let contents = contents, contents != CreateViewControllerContents.contentsTextViewPlaceHolder, contents != "" { diary.contents = contents }
+                return diary
+            }
+        
+        // Diary 저장 후 popViewController
+        didTappedRightBarButtonItem
+            .withLatestFrom(saveDiaryData) { _, diary in
+                DiaryManager.shared.editDiary(diary)
+            }
+            .bind(to: popViewController)
             .disposed(by: disposeBag)
-            
-            
-        popViewController = saveButtonTapped
-            .map { _ in Void() }
-            .asSignal(onErrorSignalWith: .empty())
     }
     
 }

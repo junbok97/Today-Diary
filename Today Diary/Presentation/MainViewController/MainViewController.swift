@@ -12,13 +12,10 @@ import RxCocoa
 
 
 final class MainViewController: UIViewController {
-    
-    var coordinator: MainCoordinatorProtocol?
-    
     private let disposeBag = DisposeBag()
     private let selectedDateSubject = PublishSubject<Date>()
     
-    private lazy var addDiaryButton: UIBarButtonItem = {
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
         let barButton = UIBarButtonItem(image: SystemImage.plus.image, style: .done, target: self, action: nil)
         barButton.tintColor = .label
         return barButton
@@ -60,6 +57,18 @@ final class MainViewController: UIViewController {
         return tableView
     }()
     
+    private var viewModel: MainViewModel!
+    weak var coordinator: MainCoordinatorProtocol?
+    
+    static func create(
+        _ viewModel: MainViewModel,
+        _ coordinator: MainCoordinator
+    ) -> MainViewController {
+        let vc = MainViewController()
+        vc.viewModel = viewModel
+        vc.coordinator = coordinator
+        return vc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,34 +78,35 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        calendar.reloadData()
+        viewModel.reloadDiaryData.accept(Void())
+        viewModel.reloadCalendar.accept(Void())
     }
     
-    func bind(_ viewModel: MainViewModel) {
-        addDiaryButton.rx.tap
-            .bind(to: viewModel.addDiaryButtonTapped)
+    func bind() {
+        rightBarButtonItem.rx.tap
+            .bind(to: viewModel.didTappedRightBarButtonItem)
             .disposed(by: disposeBag)
         
         diaryListBackgroundView
             .bind(viewModel.diaryListBackgroundViewModel)
         
+        // Calander에서 선택한 Date 보내기 선택되지 않았다면 오늘날짜 보내기
         selectedDateSubject
             .startWith(Date())
-            .bind(to: viewModel.selectDate)
+            .bind(to: viewModel.dateSelected)
             .disposed(by: disposeBag)
         
         diaryList.rx.itemSelected
-            .bind(to: viewModel.selectRow)
+            .bind(to: viewModel.itemSelected)
             .disposed(by: disposeBag)
         
         diaryList.rx.itemDeleted
-            .bind(to: viewModel.deleteRow)
+            .bind(to: viewModel.itemDeleted)
             .disposed(by: disposeBag)
         
         viewModel.reloadCalendar
             .bind(to: self.rx.reloadCalendar)
             .disposed(by: disposeBag)
-        
         
         viewModel.diaryListCellData
             .drive(diaryList.rx.items) { tableView, _, item in
@@ -121,7 +131,7 @@ final class MainViewController: UIViewController {
 private extension MainViewController {
     func attribute() {
         navigationItem.title = MainViewControllerContents.navigationItemTitle
-        navigationItem.rightBarButtonItem = addDiaryButton
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     func layout() {
@@ -131,7 +141,7 @@ private extension MainViewController {
             calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calendar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             calendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendar.heightAnchor.constraint(equalToConstant: 300),
+            calendar.heightAnchor.constraint(equalToConstant: MainViewControllerContents.calendarHeight),
             
             diaryList.topAnchor.constraint(equalTo: calendar.bottomAnchor),
             diaryList.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

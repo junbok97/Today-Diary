@@ -31,8 +31,8 @@ final class DetailCoordinator: DetailCoordinatorProtocol {
     }
     
     func start(_ viewModel: DetailViewModel) {
-        let detailViewController = DetailViewController()
-        detailViewController.bind(viewModel)
+        let detailViewController = DetailViewController.create(viewModel, self)
+        detailViewController.bind()
         detailViewController.coordinator = self
         navi.pushViewController(detailViewController, animated: false)
     }
@@ -44,6 +44,4 @@ final class DetailCoordinator: DetailCoordinatorProtocol {
     func showCreateViewController(_ viewModel: CreateViewModel) {
         parentCoordinator?.showCreateViewController(viewModel)
     }
-
-
 }

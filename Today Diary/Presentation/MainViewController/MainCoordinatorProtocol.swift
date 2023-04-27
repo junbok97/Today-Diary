@@ -24,9 +24,8 @@ final class MainCoordinator: MainCoordinatorProtocol {
     }
     
     func start() {
-        let mainViewController = MainViewController()
-        mainViewController.coordinator = self
-        mainViewController.bind(mainViewModel)
+        let mainViewController = MainViewController.create(mainViewModel, self)
+        mainViewController.bind()
         navi.pushViewController(mainViewController, animated: false)
     }
     
@@ -45,9 +44,8 @@ final class MainCoordinator: MainCoordinatorProtocol {
     }
     
     func finishChild(_ child: CoordinatorProtocol) {
-        childCoordinators = childCoordinators.filter {
-            $0 !== child
-        }
+        childCoordinators = childCoordinators.filter { $0 !== child }
+        navi.popViewController(animated: false)
     }
 
 }

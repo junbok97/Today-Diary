@@ -26,14 +26,12 @@ final class CreateCoorinator: CreateCoorinatorProtocol {
     }
 
     func start(_ viewModel: CreateViewModel) {
-        let createViewController = CreateViewController()
-        createViewController.bind(viewModel)
-        createViewController.coordinator = self
+        let createViewController = CreateViewController.create(viewModel, self)
+        createViewController.bind()
         navi.pushViewController(createViewController, animated: false)
     }
     
     func finish() {
-        navi.popViewController(animated: false)
         parentCoordinator?.finishChild(self)
     }
     

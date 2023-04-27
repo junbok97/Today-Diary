@@ -6,12 +6,12 @@
 //
 
 
-import UIKit
+import Foundation
 import RxSwift
 import RxCocoa
 
 
-struct DetailViewModel {
+final class DetailViewModel {
     
     let disposeBag = DisposeBag()
     
@@ -23,10 +23,8 @@ struct DetailViewModel {
     let editButtonTapped = PublishRelay<Void>()
     
     // 외부에서 전달받을 값
-    let receiveDiary = ReplaySubject<Diary>.create(bufferSize: 1)
-    
-    // ViewController -> ParentsViewController
-    let diaryDidChange = PublishRelay<Void>()
+    let receiveDiary = ReplayRelay<Diary>.create(bufferSize: 1)
+
     
     init() {
         sendDiary = receiveDiary
@@ -34,27 +32,21 @@ struct DetailViewModel {
         
         let createViewModel = CreateViewModel()
         
-        createViewModel.diaryEditDone
+        createViewModel.didTappedRightBarButtonItem
             .withLatestFrom(receiveDiary) { _, diary in
                 DiaryManager.shared.getDiary(diary.id)!
             }
             .bind(to: receiveDiary)
             .disposed(by: disposeBag)
         
-        createViewModel.diaryEditDone
-            .bind(to: diaryDidChange)
+        receiveDiary
+            .bind(to: createViewModel.receiveDiary)
             .disposed(by: disposeBag)
-
-        editButtonTapped
-            .withLatestFrom(sendDiary) { _, diary -> (Date?, Diary) in
-                return (nil, diary)
-            }
-            .bind(to: createViewModel.receiveData)
-            .disposed(by: disposeBag)
-        
         
         showCreateViewController = editButtonTapped
             .map { createViewModel }
             .asSignal(onErrorSignalWith: .empty())
     }
+    
+    
 }

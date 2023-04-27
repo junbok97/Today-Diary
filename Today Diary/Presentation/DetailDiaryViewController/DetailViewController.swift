@@ -10,11 +10,26 @@ import RxSwift
 
 final class DetailViewController: UIViewController {
     
-    var coordinator: DetailCoordinatorProtocol?
     let disposeBag = DisposeBag()
     
-    private lazy var editBarButtonItem: UIBarButtonItem = {
-        let barbutton = UIBarButtonItem(title: DetailViewControllerContents.rightBarButtonItemTitle, style: .plain, target: self, action: nil)
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
+        let barbutton =  UIBarButtonItem(
+            image: DetailViewControllerContents.leftBarButtonItemImage,
+            style: .plain,
+            target: self,
+            action: #selector(didTappedLeftBarButton)
+        )
+        barbutton.tintColor = .label
+        return barbutton
+    }()
+    
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
+        let barbutton = UIBarButtonItem(
+            title: DetailViewControllerContents.rightBarButtonItemTitle,
+            style: .plain,
+            target: self,
+            action: nil
+        )
         barbutton.tintColor = .label
         return barbutton
     }()
@@ -28,20 +43,14 @@ final class DetailViewController: UIViewController {
     
     private lazy var contentView: UIView = {
         let view = UIView()
-        [titleLabel, dateLabel, contentLabel].forEach { view.addSubview($0) }
+        [titleLabel, contentLabel].forEach { view.addSubview($0) }
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .subTitleFont()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.font = .titleFont()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,14 +65,27 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
+    private var viewModel: DetailViewModel!
+    weak var coordinator: DetailCoordinatorProtocol?
+    
+    static func create(
+        _ viewModel: DetailViewModel,
+        _ coordinator: DetailCoordinator
+    ) -> DetailViewController {
+        let vc = DetailViewController()
+        vc.viewModel = viewModel
+        vc.coordinator = coordinator
+        return vc
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
     }
     
-    func bind(_ viewModel: DetailViewModel) {
-        editBarButtonItem.rx.tap
+    func bind() {
+        rightBarButtonItem.rx.tap
             .bind(to: viewModel.editButtonTapped)
             .disposed(by: disposeBag)    
         
@@ -74,7 +96,6 @@ final class DetailViewController: UIViewController {
         viewModel.showCreateViewController
             .emit(to: self.rx.showCreateViewController)
             .disposed(by: disposeBag)
-            
     }
 
 }
@@ -82,16 +103,13 @@ final class DetailViewController: UIViewController {
 // MARK: - setup
 private extension DetailViewController {
     func attribute() {
-        navigationItem.title = DetailViewControllerContents.navigationItemTitle
         navigationController?.navigationBar.tintColor = .label
-        navigationItem.rightBarButtonItem = editBarButtonItem
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     func layout() {
         view.addSubview(scrollView)
-        
-        let inset: CGFloat = 4.0
-        let offset: CGFloat = 12.0
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -105,25 +123,24 @@ private extension DetailViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: offset),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: offset),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -offset),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: AutoLayoutOffset.defaultOffset),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AutoLayoutOffset.defaultOffset),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AutoLayoutOffset.defaultOffset),
             
-            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: inset),
-            dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            dateLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             
-            contentLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: offset),
-            contentLabel.leadingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
-            contentLabel.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor),
-            contentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -offset)
+            contentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: AutoLayoutOffset.defaultOffset),
+            contentLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            contentLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            contentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -AutoLayoutOffset.defaultOffset)
         ])
         
         let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
         contentViewHeight.priority = .defaultLow
         contentViewHeight.isActive = true
-        
-        
+    }
+    
+    @objc func didTappedLeftBarButton() {
+        coordinator?.finish()
     }
 }
 
@@ -132,7 +149,7 @@ extension Reactive where Base: DetailViewController {
     var diary: Binder<Diary> {
         return Binder(base) { base, diary in
             base.titleLabel.text = diary.title
-            base.dateLabel.text = diary.date
+            base.navigationItem.title = diary.date
             base.contentLabel.text = diary.contents
         }
     }

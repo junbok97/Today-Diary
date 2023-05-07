@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
+		7FD476F8D6B6E006A8F578EF /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5360F3FF52C35B1C7E74106 /* Pods_Today_Diary.framework */; };
 		CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0780C229DBDF40009FAADB /* DetailViewModel.swift */; };
 		CB0B283029E1440800B73921 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B282F29E1440800B73921 /* Contents.swift */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
@@ -40,11 +40,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.debug.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.debug.xcconfig"; sourceTree = "<group>"; };
-		15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.release.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.release.xcconfig"; sourceTree = "<group>"; };
-		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5360F3FF52C35B1C7E74106 /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0780C229DBDF40009FAADB /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CB0B282F29E1440800B73921 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
+		CB14D6DFAC10C14A30FC5CA5 /* Pods-Today Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.release.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.release.xcconfig"; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +73,7 @@
 		CBBB098C29D8309200DB4C30 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		CBBB099029D8382500DB4C30 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		CBBB099229D8388B00DB4C30 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		FB868A5D12E5DEF674084A81 /* Pods-Today Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today Diary.debug.xcconfig"; path = "Target Support Files/Pods-Today Diary/Pods-Today Diary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,17 +81,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */,
+				7FD476F8D6B6E006A8F578EF /* Pods_Today_Diary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C66DA2C657A0EF5C862EE741 /* Frameworks */ = {
+		2722BBD18745E2CA4C2A0780 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */,
+				A5360F3FF52C35B1C7E74106 /* Pods_Today_Diary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,7 +113,7 @@
 				CB24303629CEEE6E0046AD0C /* Today Diary */,
 				CB24303529CEEE6E0046AD0C /* Products */,
 				DEC0A61058BF32A4BAFE8D0B /* Pods */,
-				C66DA2C657A0EF5C862EE741 /* Frameworks */,
+				2722BBD18745E2CA4C2A0780 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -242,8 +242,8 @@
 		DEC0A61058BF32A4BAFE8D0B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */,
-				15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */,
+				FB868A5D12E5DEF674084A81 /* Pods-Today Diary.debug.xcconfig */,
+				CB14D6DFAC10C14A30FC5CA5 /* Pods-Today Diary.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -255,12 +255,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB24304829CEEE6E0046AD0C /* Build configuration list for PBXNativeTarget "Today Diary" */;
 			buildPhases = (
-				EAB50D0839F40A98625F32A6 /* [CP] Check Pods Manifest.lock */,
+				CC7FF31DF704F425307C2C1A /* [CP] Check Pods Manifest.lock */,
 				CB24303029CEEE6E0046AD0C /* Sources */,
 				CB24303129CEEE6E0046AD0C /* Frameworks */,
 				CB24303229CEEE6E0046AD0C /* Resources */,
-				9958131B38EA8813C21F7AB5 /* [CP] Embed Pods Frameworks */,
 				CB80B1CC29E535EB00298F3C /* ShellScript */,
+				AEBC5C7F3128649578DEEFFB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -318,7 +318,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9958131B38EA8813C21F7AB5 /* [CP] Embed Pods Frameworks */ = {
+		AEBC5C7F3128649578DEEFFB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -352,7 +352,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		EAB50D0839F40A98625F32A6 /* [CP] Check Pods Manifest.lock */ = {
+		CC7FF31DF704F425307C2C1A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -540,7 +540,7 @@
 		};
 		CB24304929CEEE6E0046AD0C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0261C5DCF1F130953E93AB79 /* Pods-Today Diary.debug.xcconfig */;
+			baseConfigurationReference = FB868A5D12E5DEF674084A81 /* Pods-Today Diary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -572,7 +572,7 @@
 		};
 		CB24304A29CEEE6E0046AD0C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15A2FDFA9C46E59A809CBB72 /* Pods-Today Diary.release.xcconfig */;
+			baseConfigurationReference = CB14D6DFAC10C14A30FC5CA5 /* Pods-Today Diary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -23,6 +23,7 @@ final class MainViewController: UIViewController {
     
     let diaryListBackgroundView = DiaryListBackgroundView()
     
+    
     lazy var calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
         calendar.delegate = self
@@ -108,6 +109,7 @@ final class MainViewController: UIViewController {
             .bind(to: self.rx.reloadCalendar)
             .disposed(by: disposeBag)
         
+        
         viewModel.diaryListCellData
             .drive(diaryList.rx.items) { tableView, _, item in
                 let cell = DiaryListCell.dequeueReusableCell(target: tableView, indexPath: nil)
@@ -185,3 +187,4 @@ extension Reactive where Base: MainViewController {
         }
     }
 }
+

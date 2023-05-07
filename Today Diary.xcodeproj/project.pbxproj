@@ -10,7 +10,6 @@
 		04188DF0AD3BC153653CDE99 /* Pods_Today_Diary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */; };
 		CB0780C329DBDF40009FAADB /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0780C229DBDF40009FAADB /* DetailViewModel.swift */; };
 		CB0B283029E1440800B73921 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B282F29E1440800B73921 /* Contents.swift */; };
-		CB1CC52429F677C300358823 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CC52329F677C300358823 /* Test.storyboard */; };
 		CB24303829CEEE6E0046AD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303729CEEE6E0046AD0C /* AppDelegate.swift */; };
 		CB24303A29CEEE6E0046AD0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */; };
 		CB24303C29CEEE6E0046AD0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24303B29CEEE6E0046AD0C /* MainViewController.swift */; };
@@ -46,7 +45,6 @@
 		5E11BC606A6FE9CCD3DD461C /* Pods_Today_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0780C229DBDF40009FAADB /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CB0B282F29E1440800B73921 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
-		CB1CC52329F677C300358823 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		CB24303429CEEE6E0046AD0C /* Today Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Today Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24303729CEEE6E0046AD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB24303929CEEE6E0046AD0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 				CB03B28029D58E27008771BD /* Presentation */,
 				CB24304029CEEE6E0046AD0C /* Assets.xcassets */,
 				CB24304229CEEE6E0046AD0C /* LaunchScreen.storyboard */,
-				CB1CC52329F677C300358823 /* Test.storyboard */,
 				CB24304529CEEE6E0046AD0C /* Info.plist */,
 			);
 			path = "Today Diary";
@@ -314,7 +311,6 @@
 			files = (
 				CB80B1CB29E535D900298F3C /* .swiftlint.yml in Resources */,
 				CB24304429CEEE6E0046AD0C /* LaunchScreen.storyboard in Resources */,
-				CB1CC52429F677C300358823 /* Test.storyboard in Resources */,
 				CB24304129CEEE6E0046AD0C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,7 +558,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.junbok97.Today-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -594,7 +590,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.junbok97.Today-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

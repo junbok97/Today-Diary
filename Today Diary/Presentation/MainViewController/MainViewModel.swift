@@ -29,18 +29,12 @@ final class MainViewModel {
     let reloadCalendar = PublishRelay<Void>()
     let reloadDiaryData = PublishRelay<Void>()
     
-//    let diaryData = ReplaySubject<[Diary]>.create(bufferSize: 1)
-    let diaryData = PublishRelay<[Diary]>()
+    let diaryData = ReplaySubject<[Diary]>.create(bufferSize: 1)
     
     init() {
         diaryListCellData = diaryData
             .asDriver(onErrorDriveWith: .empty())
-        
-        diaryListCellData
-            .drive(onNext: {
-                print("DiaryList", $0)
-            })
-            .disposed(by: disposeBag)
+
         
         // reload이벤트가 들어오면 View에 새로운 diaryList
         reloadDiaryData
